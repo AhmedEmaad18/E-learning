@@ -1,0 +1,257 @@
+.admin-dashboard-container {
+  height: 100vh;
+}
+
+.admin-sidenav {
+  width: 230px;
+  background: #f5f7fa;
+  border-right: 1px solid #e0e0e0;
+  padding-top: 0;
+}
+
+.sidenav-header {
+  display: flex;
+  align-items: center;
+  padding: 24px 16px 12px 16px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+.platform-title {
+  margin-left: 8px;
+}
+
+mat-nav-list a {
+  font-size: 1.08rem;
+  color: #333;
+  border-radius: 6px;
+  margin: 2px 0;
+}
+
+mat-nav-list a.active-link {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+mat-nav-list a mat-icon {
+  margin-right: 12px;
+}
+
+.admin-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 64px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.admin-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-left: 12px;
+}
+
+.admin-name {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.admin-role {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.dashboard-content {
+  padding: 32px 32px 0 32px;
+}
+
+.welcome-section {
+  background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 28px 32px 20px 32px;
+  margin-bottom: 32px;
+}
+
+.dashboard-badges {
+  margin-top: 12px;
+}
+.badge {
+  display: inline-block;
+  background: #e3e6f8;
+  color: #1976d2;
+  border-radius: 16px;
+  padding: 4px 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-right: 8px;
+}
+.badge.role {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.badge.access {
+  background: #ede7f6;
+  color: #7c4dff;
+}
+.stats-section {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.stat-card {
+  flex: 1;
+  text-align: left;
+  padding: 18px 0 18px 24px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+  position: relative;
+  min-width: 180px;
+}
+.stat-value {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #222;
+}
+.stat-sub {
+  font-size: 1rem;
+  color: #43a047;
+  margin-top: 2px;
+}
+.stat-icon {
+  position: absolute;
+  right: 24px;
+  top: 32px;
+  font-size: 2.2rem;
+  color: #e3e6f8;
+}
+.dashboard-lists {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+}
+.recent-activity,
+.popular-lessons {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+  padding: 24px 20px;
+  flex: 1;
+}
+.recent-activity h3,
+.popular-lessons h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+.activity-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #e3e6f8;
+  color: #1976d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-right: 14px;
+}
+.activity-user {
+  font-weight: 600;
+  color: #222;
+}
+.activity-desc {
+  font-size: 0.98rem;
+  color: #555;
+}
+.activity-time {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+.lesson-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+.lesson-title {
+  font-weight: 600;
+  color: #222;
+}
+.lesson-students {
+  font-size: 0.95rem;
+  color: #888;
+}
+.lesson-revenue {
+  font-weight: 600;
+  color: #43a047;
+  font-size: 1.1rem;
+}
+.lesson-revenue span {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-left: 4px;
+}
+
+.quick-actions-section {
+  margin-top: 24px;
+}
+
+.quick-action-card {
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+}
+
+.admin-menu-trigger {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transition: background-color 0.2s;
+}
+
+.admin-menu-trigger:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.profile-icon {
+  font-size: 24px;
+}
+
+.admin-info {
+  text-align: left;
+  line-height: 1.2;
+}
+
+.dropdown-arrow {
+  font-size: 20px;
+
+}
+
+@media (max-width: 900px) {
+  .stats-section,
+  .dashboard-lists {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .dashboard-content {
+    padding: 16px 8px 0 8px;
+  }
+  .welcome-section {
+    padding: 18px 12px 12px 12px;
+  }
+}

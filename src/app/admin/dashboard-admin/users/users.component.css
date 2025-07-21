@@ -1,0 +1,99 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+  overflow: hidden;
+}
+th,
+td {
+  padding: 12px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+th {
+  background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1.08rem;
+}
+tr:hover {
+  background: #f1f8ff;
+}
+.mat-form-field {
+  min-width: 120px;
+}
+.role-admin {
+  color: #1976d2;
+  font-weight: 600;
+  background: #e3f2fd;
+  border-radius: 8px;
+  padding: 4px 12px;
+  display: inline-block;
+}
+.role-user {
+  color: #43a047;
+  font-weight: 600;
+  background: #e8f5e9;
+  border-radius: 8px;
+  padding: 4px 12px;
+  display: inline-block;
+}
+.users-title {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 18px;
+  gap: 10px;
+}
+.users-title-icon {
+  font-size: 2.2rem;
+  margin-right: 6px;
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px; /* Or any height that suits your layout */
+}
+@media (max-width: 900px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+    width: 100%;
+  }
+  thead {
+    display: none;
+  }
+  tr {
+    margin-bottom: 18px;
+    box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+    border-radius: 10px;
+    background: #fff;
+    padding: 8px 0;
+  }
+  td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+    min-height: 38px;
+  }
+  td:before {
+    position: absolute;
+    top: 12px;
+    left: 16px;
+    width: 45%;
+    white-space: nowrap;
+    font-weight: 600;
+    color: #1976d2;
+    content: attr(data-label);
+  }
+}
