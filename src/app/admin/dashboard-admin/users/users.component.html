@@ -1,0 +1,35 @@
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!loading">
+  <div class="users-title p-2">
+    <mat-icon class="users-title-icon" color="primary">group</mat-icon>
+    <span>All Users</span>
+  </div>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td data-label="Name">{{ user.fullName }}</td>
+        <td data-label="Email">{{ user.email }}</td>
+        <td data-label="Role">
+          <span
+            [ngClass]="{
+              'role-admin': user.role === 'admin',
+              'role-user': user.role === 'user'
+            }"
+          >
+            {{ user.role | titlecase }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

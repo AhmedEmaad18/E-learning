@@ -1,0 +1,12 @@
+{
+  "/auth": {
+    "target": "https://edu-master-delta.vercel.app",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/user": {
+    "target": "https://edu-master-delta.vercel.app",
+    "secure": false,
+    "changeOrigin": true
+  }
+} 

@@ -1,0 +1,70 @@
+<h1 mat-dialog-title>Create New Admin</h1>
+<div mat-dialog-content>
+  <form [formGroup]="createAdminForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Full Name</mat-label>
+      <input
+        matInput
+        placeholder="Enter full name"
+        formControlName="fullName"
+        required
+      />
+      <mat-error *ngIf="createAdminForm.get('fullName')?.hasError('required')"
+        >Full name is required.</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Enter email"
+        formControlName="email"
+        required
+        email
+      />
+      <mat-error *ngIf="createAdminForm.get('email')?.hasError('required')"
+        >Email is required.</mat-error
+      >
+      <mat-error *ngIf="createAdminForm.get('email')?.hasError('email')"
+        >Please enter a valid email address.</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        placeholder="Enter password"
+        formControlName="password"
+        required
+        [type]="hidePassword ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      <mat-error *ngIf="createAdminForm.get('password')?.hasError('required')"
+        >Password is required.</mat-error
+      >
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!createAdminForm.valid"
+    (click)="onSubmit()"
+  >
+    Create
+  </button>
+</div>
