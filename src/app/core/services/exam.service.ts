@@ -13,4 +13,5 @@ export class ExamService {
     const headers = new HttpHeaders({ token: token || '' });
     return this.http.get<any[]>(`${this.apiUrl}/exam`, { headers });
   }
+
 }
