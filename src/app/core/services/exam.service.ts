@@ -14,11 +14,4 @@ export class ExamService {
     return this.http.get<any[]>(`${this.apiUrl}/exam`, { headers });
   }
 
-  getStudentExams(): Observable<any[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ token: token || '' });
-    return this.http.get<any[]>(`${this.apiUrl}/studentExam/exams`, {
-      headers,
-    });
-  }
 }
