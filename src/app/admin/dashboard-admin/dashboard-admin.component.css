@@ -239,7 +239,6 @@ mat-nav-list a mat-icon {
 
 .dropdown-arrow {
   font-size: 20px;
-
 }
 
 @media (max-width: 900px) {
@@ -253,5 +252,43 @@ mat-nav-list a mat-icon {
   }
   .welcome-section {
     padding: 18px 12px 12px 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-toolbar {
+    flex-direction: row;
+    justify-content: space-between;
+    min-height: 56px;
+    padding: 0 8px;
+  }
+  .admin-info {
+    flex-direction: row;
+    align-items: center;
+    margin-left: 0;
+    font-size: 0.95rem;
+    max-width: 140px;
+    overflow: hidden;
+  }
+  .admin-name {
+    display: inline-block;
+    max-width: 110px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: max-width 0.2s;
+  }
+  .admin-role {
+    display: none;
+  }
+  .nav-closed .admin-name {
+    display: none;
+  }
+  .profile-icon {
+    font-size: 22px;
+    margin-left: 8px;
+  }
+  .admin-menu-trigger {
+    padding: 4px 8px;
   }
 }

@@ -164,7 +164,19 @@ export class AuthService {
   }
 
   getCurrentUser(): User | null {
-    return this.currentUserSubject.value;
+    let user = this.currentUserSubject.value;
+    if (!user) {
+      const userStr = localStorage.getItem('user');
+      if (userStr && userStr !== 'undefined') {
+        try {
+          user = JSON.parse(userStr);
+          this.currentUserSubject.next(user);
+        } catch {
+          user = null;
+        }
+      }
+    }
+    return user;
   }
 
   getToken(): string | null {
