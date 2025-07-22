@@ -1,0 +1,44 @@
+<div class="py-3">
+  <h3 class="mb-4 text-dark fw-semibold">{{ question.text || 'Question' }}</h3>
+
+  <mat-radio-group
+    *ngIf="question.type === 'multiple-choice' || question.type === 'true-false'"
+    [value]="selectedAnswer"
+    (change)="selectAnswer($event.value)"
+    class="d-flex flex-column gap-3"
+  >
+    <mat-radio-button
+      *ngFor="let option of questionOptions()"
+      [value]="option"
+      class="btn btn-outline-secondary text-start rounded-3 shadow-sm d-flex align-items-center"
+      style="padding: 0.75rem 1rem; font-size: 1.05rem;"
+    >
+      <!-- Icon next to option text -->
+      <span class="me-3 icon-wrapper">
+        <i
+          [ngClass]="{
+            'bi-check-circle-fill text-success': selectedAnswer === option,
+            'bi-circle text-secondary': selectedAnswer !== option
+          }"
+          class="fs-4"
+          aria-hidden="true"
+        ></i>
+      </span>
+
+      {{ option }}
+    </mat-radio-button>
+  </mat-radio-group>
+
+  <mat-form-field *ngIf="question.type === 'short-answer'" appearance="fill" class="w-100 mt-4">
+    <textarea
+      matInput
+      rows="5"
+      placeholder="Type your answer here..."
+      [value]="selectedAnswer || ''"
+      (input)="selectAnswer($any($event.target).value)"
+      class="form-control shadow-sm"
+      style="font-size: 1rem; resize: vertical;"
+      required
+    ></textarea>
+  </mat-form-field>
+</div>
