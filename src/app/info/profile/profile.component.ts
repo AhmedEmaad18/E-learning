@@ -280,7 +280,14 @@ export class ProfileComponent implements OnInit {
   }
 
   backToDashboard() {
-    this.router.navigate(['/admin/dashboard']);
+    if (
+      this.currentUser?.role &&
+      this.currentUser.role.toLowerCase().includes('admin')
+    ) {
+      this.router.navigate(['/admin/dashboard']);
+    } else {
+      this.router.navigate(['/student/dashboard']);
+    }
   }
 
   isSuperAdmin(): boolean {

@@ -55,25 +55,38 @@ export class LoginComponent {
 
       this.authService.login({ email, password }).subscribe({
         next: (response) => {
-          this.loading = false;
-          Swal.fire({
-            icon: 'success',
-            title: 'Welcome back!',
-            text: response.message || 'Login successful',
-            timer: 2000,
-            showConfirmButton: false,
-          }).then(() => {
-            const user = this.authService.getCurrentUser();
-            const role = user?.role?.toLowerCase();
-            if (
-              role === 'admin' ||
-              role === 'super_admin' ||
-              role === 'superadmin'
-            ) {
-              this.router.navigate(['/admin/dashboard']);
-            } else {
-              this.router.navigate(['/dashboard']);
-            }
+          // After login, fetch the latest user profile
+          this.authService.getProfile().subscribe({
+            next: (user) => {
+              this.loading = false;
+              Swal.fire({
+                icon: 'success',
+                title: 'Welcome back!',
+                text: response.message || 'Login successful',
+                timer: 2000,
+                showConfirmButton: false,
+              }).then(() => {
+                const role = user?.role?.toLowerCase();
+                if (
+                  role === 'admin' ||
+                  role === 'super_admin' ||
+                  role === 'superadmin'
+                ) {
+                  this.router.navigate(['/admin/dashboard']);
+                } else {
+                  this.router.navigate(['/student/dashboard']);
+                }
+              });
+            },
+            error: () => {
+              this.loading = false;
+              Swal.fire({
+                icon: 'error',
+                title: 'Login Failed',
+                text: 'Could not fetch user profile.',
+                confirmButtonColor: '#3f51b5',
+              });
+            },
           });
         },
         error: (error) => {
