@@ -1,1 +1,182 @@
-<p>dashboard-admin works!</p>
+<mat-sidenav-container class="admin-dashboard-container">
+  <mat-sidenav #sidenav mode="side" opened class="admin-sidenav">
+    <div class="sidenav-header">
+      <mat-icon>school</mat-icon>
+      <span class="platform-title">Edu Master</span>
+    </div>
+    <mat-nav-list>
+      <a
+        mat-list-item
+        routerLink="/admin/dashboard"
+        routerLinkActive="active-link"
+      >
+        <mat-icon class="text-primary">dashboard</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/admin/users" routerLinkActive="active-link">
+        <mat-icon class="text-info">group</mat-icon>
+        <span>Users</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/manage-lessons"
+        routerLinkActive="active-link"
+      >
+        <mat-icon class="text-success">menu_book</mat-icon>
+        <span>Manage Lessons</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/manage-exams"
+        routerLinkActive="active-link"
+      >
+        <mat-icon class="text-warning">assignment</mat-icon>
+        <span>Manage Exams</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="/admin/reports"
+        routerLinkActive="active-link"
+      >
+        <mat-icon class="text-danger">bar_chart</mat-icon>
+        <span>Reports</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="admin-toolbar">
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-btn">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="toolbar-spacer"></span>
+
+      <button
+        mat-button
+        [matMenuTriggerFor]="adminMenu"
+        class="admin-menu-trigger"
+      >
+        <mat-icon class="profile-icon text-info">account_circle</mat-icon>
+        <div class="admin-info">
+          <span class="admin-name text-info">{{ adminName }}</span>
+          <span class="admin-role">{{ adminRole }}</span>
+        </div>
+        <mat-icon class="dropdown-arrow text-info"
+          >keyboard_arrow_down</mat-icon
+        >
+      </button>
+
+      <mat-menu #adminMenu="matMenu">
+        <button mat-menu-item (click)="goToProfile()">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item (click)="signOut()">
+          <mat-icon color="warn">logout</mat-icon>
+          <span class="text-danger">Sign Out</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <div class="dashboard-content" *ngIf="isDashboardRoute()">
+      <div class="welcome-section mat-elevation-z2">
+        <h2>Admin Dashboard</h2>
+        <p>Monitor and manage your learning platform</p>
+        <div class="dashboard-badges">
+          <span class="badge role">Role: admin</span>
+          <span class="badge access">Access Level: Full</span>
+        </div>
+      </div>
+      <div class="stats-section">
+        <mat-card class="stat-card">
+          <mat-card-title>Total Users</mat-card-title>
+          <mat-card-content>
+            <div class="stat-value">{{ totalUsers }}</div>
+            <div class="stat-sub">&nbsp;</div>
+            <mat-icon class="stat-icon" style="color: #1976d2">groups</mat-icon>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="stat-card">
+          <mat-card-title>Total Lessons</mat-card-title>
+          <mat-card-content>
+            <div class="stat-value">{{ totalLessons }}</div>
+            <div class="stat-sub">&nbsp;</div>
+            <mat-icon class="stat-icon" style="color: #43a047"
+              >menu_book</mat-icon
+            >
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="stat-card">
+          <mat-card-title>Active Exams</mat-card-title>
+          <mat-card-content>
+            <div class="stat-value">{{ totalExams }}</div>
+            <div class="stat-sub">&nbsp;</div>
+            <mat-icon class="stat-icon" style="color: #ff9800"
+              >assignment</mat-icon
+            >
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="stat-card">
+          <mat-card-title>Revenue</mat-card-title>
+          <mat-card-content>
+            <div class="stat-value">${{ totalRevenue | number : "1.0-0" }}</div>
+            <div class="stat-sub">&nbsp;</div>
+            <mat-icon class="stat-icon text-success">bar_chart</mat-icon>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="dashboard-lists">
+        <div class="recent-activity">
+          <h3>Recent Activity</h3>
+          <ng-container
+            *ngIf="recentUsers && recentUsers.length; else noActivity"
+          >
+            <div
+              class="activity-item"
+              *ngFor="let user of recentUsers; let i = index"
+            >
+              <div class="avatar">
+                {{ user.fullName ? user.fullName.charAt(0) : "?" }}
+              </div>
+              <div>
+                <div class="activity-user">{{ user.fullName }}</div>
+                <div class="activity-time">
+                  {{ user.createdAt | date : "medium" }}
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noActivity>
+            <div class="activity-item">
+              <div>No recent activity.</div>
+            </div>
+          </ng-template>
+        </div>
+        <div class="popular-lessons">
+          <h3>Popular Lessons</h3>
+          <ng-container
+            *ngIf="popularLessons && popularLessons.length; else noLessons"
+          >
+            <div class="lesson-item" *ngFor="let lesson of popularLessons">
+              <div>
+                <div class="lesson-title">{{ lesson.title }}</div>
+                <div class="lesson-students">
+                  {{ lesson.students?.length || 0 }} students
+                </div>
+              </div>
+              <div class="lesson-revenue">
+                ${{ lesson.price || 0 }} <span>Revenue</span>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #noLessons>
+            <div class="lesson-item">
+              <div>No popular lessons.</div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <router-outlet *ngIf="!isDashboardRoute()"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

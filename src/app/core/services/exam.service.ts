@@ -9,7 +9,14 @@ import { ApiResponse, ExamResult, ExamStatusResponse, ExamSubmitResponse, Studen
 export class ExamService {
   private baseUrl = 'https://edu-master-delta.vercel.app/exam';
   private studentExamBaseUrl = 'https://edu-master-delta.vercel.app/studentExam';
+ private apiUrl = 'https://edu-master-delta.vercel.app';
 
+
+  getAllExams(): Observable<any[]> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ token: token || '' });
+    return this.http.get<any[]>(`${this.apiUrl}/exam`, { headers });
+  }
   constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {
@@ -98,5 +105,6 @@ getAllStudentExams(): Observable<ApiResponse<StudentExam[]>> {
     { headers: this.getHeaders() }
   );
 }
+
 
 }
