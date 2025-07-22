@@ -1,0 +1,76 @@
+.exam-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem 1.25rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.exam-header h2 {
+  font-weight: 700;
+  color: #343a40;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #198754; /* bootstrap success green */
+  border-color: #198754;
+  color: white;
+  font-weight: 600;
+}
+
+.pagination .page-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #495057;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.pagination .page-link:hover:not(.active) {
+  background-color: #f8f9fa;
+}
+
+.navigation-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navigation-buttons button {
+  font-weight: 600;
+  border-radius: 6px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+}
+
+.badge.bg-danger {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.btn-outline-secondary {
+  color: #495057;
+  border-color: #ced4da;
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.btn-outline-secondary:hover:not(:disabled) {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+  color: #343a40;
+}
+/* Add margin-right between question number buttons */
+.pagination .page-item {
+  margin-right: 0.5rem;
+}
+
+/* Hover effect specifically for Next button */
+.navigation-buttons button.btn-outline-secondary:hover:not(:disabled) {
+  background-color: #d3d9df; /* Slightly darker than #e9ecef */
+  border-color: #adb5bd;
+  color: #343a40;
+}

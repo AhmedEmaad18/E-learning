@@ -1,4 +1,8 @@
 import { Routes } from '@angular/router';
+
+import { ExamListComponent } from './frontend-layout/dashboard-student/exams/exam-list/exam-list.component';
+import { ExamTakeComponent } from './frontend-layout/dashboard-student/exams/exam-take/exam-take.component';
+import { ExamResultComponent } from './frontend-layout/dashboard-student/exams/exam-result/exam-result.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthGuard, AdminGuard } from './core/guard/auth.guard';
@@ -68,6 +72,9 @@ export const routes: Routes = [
             './frontend-layout/dashboard-student/my-scores/my-scores.component'
           ).then((m) => m.MyScoresComponent),
       },
+    { path: 'exam-list', component: ExamListComponent },
+  { path: 'exam-start/:examId', component: ExamTakeComponent },  // changed param name here
+  { path: 'exam-results/:studentExamId', component: ExamResultComponent }, // likewise here
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },

@@ -1,0 +1,261 @@
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.text-primary {
+  /* Remove color */
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+  letter-spacing: 1px;
+  /* color: #007bff; */ /* removed */
+  color: inherit; /* fallback to default */
+}
+
+.display-4 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  /* Remove color */
+  /* color: #007bff; */ /* removed */
+  color: inherit;
+}
+
+
+.gradient-bg {
+  background: linear-gradient(90deg, #4e8df3, #4ec37a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  user-select: none;
+}
+.stats {
+  flex-direction: column;  /* vertical stack */
+  gap: 20px;               /* space between */
+  max-width: 900px;        /* optional */
+  display: flex;           /* make sure flex container */
+}
+.stat-box {
+  width: 100%;             /* full width of stats container */
+  flex: none;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 25px 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.stat-box:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+
+.stat-box h6 {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+
+.card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 25px;
+  margin: 12px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+}
+
+.badge {
+  margin-left: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  user-select: none;
+}
+
+.badge-success, .badge.success {
+  background-color: #4caf50;
+  color: white;
+}
+
+.badge.medium {
+  background-color: #ffca28;
+  color: #333;
+}
+
+.badge.hard {
+  background-color: #e53935;
+  color: white;
+}
+
+.start-btn {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.3rem;
+  cursor: pointer;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 3px 7px rgba(25, 118, 210, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.start-btn:hover {
+  background-color: #115293;
+  box-shadow: 0 5px 15px rgba(17, 82, 147, 0.6);
+}
+
+.exam-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.exam-footer .availability {
+  font-style: italic;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: 600;
+  color: #555;
+  margin-top: 20px;
+}
+
+.tabs {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  border-bottom: 2px solid #eee;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 12px 0;
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #555;
+  transition: all 0.3s ease;
+  border-radius: 4px 4px 0 0;
+}
+
+.tabs button.active {
+  color: #1976d2;
+  border-color: #1976d2;
+  background-color: #e3f2fd;
+  box-shadow: inset 0 -3px 0 #1976d2;
+}
+
+.exam-content {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stats {
+    flex-direction: column;
+  }
+  .stat-box {
+    margin: 0 0 15px;
+  }
+  .exam-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .start-btn {
+    width: 100%;
+  }
+}
+.completed-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.completed-badge {
+  background-color: #4caf50; /* Green */
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  user-select: none;
+}
+
+.completed-badge i.fa-flag {
+  font-size: 1rem;
+}
+
+/* Optional: Add some spacing below the score */
+.exam-score {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #333;
+}
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px; /* or whatever fits your layout */
+}
+
+.stat-icon {
+  color: #1976d2; /* match your theme blue */
+  user-select: none;
+  margin-left: 15px;
+}
+
+.stat-icon.book {
+  color: #4e8df3; /* blue */
+}
+
+.stat-icon.check-circle {
+  color: #4caf50; /* green */
+}
+
+.stat-icon.trophy {
+  color: #ffb300; /* gold */
+}

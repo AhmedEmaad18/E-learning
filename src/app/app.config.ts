@@ -1,5 +1,6 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
@@ -14,5 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
+    importProvidersFrom(ModalModule.forRoot())
   ],
 };
