@@ -8,9 +8,15 @@ export class LessonService {
 
   constructor(private http: HttpClient) {}
 
-  getAllLessons(): Observable<any[]> {
+  getAllLessons(): Observable<any> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ token: token || '' });
-    return this.http.get<any[]>(`${this.apiUrl}/lesson`, { headers });
+    return this.http.get(`${this.apiUrl}/lesson`, { headers });
+  }
+
+  getLessonById(id: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ token: token || '' });
+    return this.http.get(`${this.apiUrl}/lesson/${id}`, { headers });
   }
 }

@@ -1,1 +1,57 @@
-<p>lesson-detail works!</p>
+<section>
+  <div class="container my-5 px-4 px-md-5">
+    @if(isLoading){
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="height: 80vh"
+    >
+      <div
+        class="spinner-border text-primary"
+        role="status"
+        style="width: 6rem; height: 6rem; border-width: 0.6rem"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    } @else{
+    <div class="card shadow-lg rounded-4 p-4 border-0">
+      <!-- Video Section -->
+      <div class="ratio ratio-16x9 rounded-3 overflow-hidden bg-light mb-4">
+        @if (lesson?.video) {
+        <iframe
+          [src]="getEmbeddedVideoUrl(lesson.video)"
+          class="w-100 h-100 border-0"
+          style="height: 400px"
+          allowfullscreen
+        ></iframe>
+        }
+      </div>
+
+      <!-- Info Section -->
+      <div class="px-1 px-md-3">
+        <h2 class="fw-bold text-primary mb-3">{{ lesson?.title }}</h2>
+        <p class="text-muted fs-6 mb-4">{{ lesson?.description }}</p>
+
+        <div class="mb-2 d-flex justify-content-between">
+          <span class="fw-semibold text-dark">Class Level:</span>
+          <span class="text-muted">{{ lesson?.classLevel }}</span>
+        </div>
+
+        <div class="mb-2 d-flex justify-content-between">
+          <span class="fw-semibold text-dark">Created On:</span>
+          <span class="text-muted">{{
+            lesson?.createdAt | date : "yyyy-MM-dd"
+          }}</span>
+        </div>
+
+        <div class="mb-2 d-flex justify-content-between">
+          <span class="fw-semibold text-dark">Last Updated:</span>
+          <span class="text-muted">{{
+            lesson?.updatedAt | date : "yyyy-MM-dd"
+          }}</span>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</section>
