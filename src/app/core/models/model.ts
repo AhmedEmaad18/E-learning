@@ -112,3 +112,17 @@ export interface ExamScore {
     _id: string;
   }[];
 }
+export interface Lesson {
+  _id: string;
+  title: string;
+  description: string;
+  video: string;
+  classLevel: string;
+  price: number;
+  isPaid: boolean;
+  scheduledDate: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}

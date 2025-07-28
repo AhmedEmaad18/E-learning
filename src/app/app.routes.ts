@@ -29,8 +29,15 @@ export const routes: Routes = [
         path: 'lessons',
         loadComponent: () =>
           import(
-            './frontend-layout/dashboard-student/lessons/lessons.component'
-          ).then((m) => m.LessonsComponent),
+            './frontend-layout/dashboard-student/lesson-list/lesson-list.component'
+          ).then((m) => m.LessonListComponent),
+      },
+       {
+        path: 'lesson/:id',
+        loadComponent: () =>
+          import(
+            './frontend-layout/dashboard-student/lesson-detail/lesson-detail.component'
+          ).then((m) => m.LessonDetailComponent),
       },
       {
         path: 'exams',

@@ -9,13 +9,23 @@ export class PaymentService {
 
   constructor(private http: HttpClient) {}
 
+  payment(lessonId: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ token: token || '' });
+    return this.http.post(
+      `${this.apiUrl}/lesson/pay/${lessonId}`,
+      {},
+      { headers }
+    );
+  }
+
   // Get all purchased lessons for the current user
   getPurchasedLessons(): Observable<any[]> {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ token: token || '' });
-    return this.http.get<any[]>(`${this.apiUrl}/lesson/my/purchased`, {
-      headers,
-    });
+    return this.http
+      .get<any>(`${this.apiUrl}/lesson/my/purchased`, { headers })
+      .pipe(map((res) => res.data));
   }
 
   // Sum the price of all purchased lessons for revenue

@@ -1,0 +1,12 @@
+/* Gradient button */
+.btn-gradient-purple-pink {
+  background: linear-gradient(to right, #7e22ce, #ec4899);
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(126, 34, 206, 0.3);
+}
+
+.btn-gradient-purple-pink:hover {
+  background: linear-gradient(to right, #6b21a8, #db2777);
+  transform: scale(1.05);
+}
