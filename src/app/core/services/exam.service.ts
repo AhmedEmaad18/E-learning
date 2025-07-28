@@ -1,14 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import {
-  ApiResponse,
-  ExamResult,
-  ExamStatusResponse,
-  ExamSubmitResponse,
-  StudentExam,
-  StudentExamStartResponse,
-} from '../models/model';
+
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ApiResponse, ExamResult, ExamStatusResponse, ExamSubmitResponse, StudentExam, StudentExamStartResponse } from '../models/model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +20,8 @@ export class ExamService {
     return this.http.get<any[]>(`${this.apiUrl}/exam`, { headers });
   }
   constructor(private http: HttpClient) {}
-
   private getHeaders(): HttpHeaders {
+
     const token = localStorage.getItem('token');
     if (token) {
       return new HttpHeaders({
@@ -36,6 +31,7 @@ export class ExamService {
     return new HttpHeaders();
   }
 
+ 
   getExams(): Observable<ApiResponse<any>> {
     return this.http.get<ApiResponse<any>>(this.baseUrl, {
       headers: this.getHeaders(),
@@ -107,15 +103,23 @@ export class ExamService {
 
   // Updated method: requires dummyAnswer with questionId and selectedAnswer to avoid errors
   checkExamSubmissionStatus(
-    examId: string,
-    answers: { questionId: string; selectedAnswer: string }[]
-  ): Observable<{ success: boolean; message: string }> {
-    return this.http.post<{ success: boolean; message: string }>(
-      `${this.studentExamBaseUrl}/submit/${examId}`,
-      { answers }, // must send answers as array with at least one valid answer
-      { headers: this.getHeaders() }
-    );
-  }
+
+  examId: string,
+  answers: { questionId: string; selectedAnswer: string }[]
+): Observable<{ success: boolean; message: string }> {
+  return this.http.post<{ success: boolean; message: string }>(
+    `${this.studentExamBaseUrl}/submit/${examId}`,
+    { answers }, // must send answers as array with at least one valid answer
+    { headers: this.getHeaders() }
+  );
+}
+
+ private averageScoreSubject = new BehaviorSubject<string | number>('-');
+  averageScore$ = this.averageScoreSubject.asObservable();
+
+  setAverageScore(score: string | number) {
+    this.averageScoreSubject.next(score);
+
 
   getAllStudentsScoresForExam(
     examId: string,
@@ -126,5 +130,6 @@ export class ExamService {
       url += `?studentName=${encodeURIComponent(studentName)}`;
     }
     return this.http.get<any>(url, { headers: this.getHeaders() });
+
   }
 }

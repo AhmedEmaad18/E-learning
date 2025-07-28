@@ -1,0 +1,108 @@
+  <div class="container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="edit-question-form p-4 rounded shadow bg-white" >
+    <h4 class="mb-4 text-primary d-flex align-items-center gap-2">
+      <i class="bi bi-pencil-square"></i> Edit Question
+    </h4>
+
+    <div class="mb-3">
+      <label for="text" class="form-label">Question Text <i class="bi bi-chat-text-fill text-info"></i></label>
+      <input
+        id="text"
+        type="text"
+        class="form-control form-control-lg"
+        formControlName="text"
+        placeholder="Enter question text"
+        autofocus
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="type" class="form-label">Type <i class="bi bi-list-ul"></i></label>
+      <select
+        id="type"
+        class="form-select form-select-lg"
+        formControlName="type"
+        (change)="onTypeChange()"
+        aria-label="Select question type"
+      >
+        <option value="multiple-choice">Multiple Choice</option>
+        <option value="true-false">True / False</option>
+        <option value="short-answer">Short Answer</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="points" class="form-label">Points <i class="bi bi-award-fill text-warning"></i></label>
+      <input
+        id="points"
+        type="number"
+        class="form-control form-control-lg"
+        formControlName="points"
+        min="0"
+        placeholder="Enter points value"
+      />
+    </div>
+
+    <!-- Options -->
+    <div *ngIf="form.value.type === 'multiple-choice' || form.value.type === 'true-false'" class="mb-3">
+      <label class="form-label d-flex align-items-center gap-2">
+        <i class="bi bi-list-check"></i> Options
+      </label>
+      <div formArrayName="options">
+        <div
+          *ngFor="let option of options.controls; let i = index"
+          class="input-group mb-2"
+        >
+          <span class="input-group-text">
+            <i class="bi bi-card-text"></i>
+          </span>
+          <input
+            [formControlName]="i"
+            type="text"
+            class="form-control form-control-lg"
+            placeholder="Option {{ i + 1 }}"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Correct Answer for MC and TF -->
+    <div *ngIf="form.value.type === 'multiple-choice' || form.value.type === 'true-false'" class="mb-3">
+      <label for="correctAnswer" class="form-label d-flex align-items-center gap-2">
+        <i class="bi bi-patch-check-fill text-success"></i> Correct Answer
+      </label>
+      <select
+        id="correctAnswer"
+        class="form-select form-select-lg"
+        formControlName="correctAnswer"
+      >
+        <option *ngFor="let opt of options.controls" [value]="opt.value">
+          {{ opt.value }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Correct Answer for Short Answer -->
+    <div *ngIf="form.value.type === 'short-answer'" class="mb-3">
+      <label for="correctAnswer" class="form-label d-flex align-items-center gap-2">
+        <i class="bi bi-patch-check-fill text-success"></i> Correct Answer
+      </label>
+      <input
+        id="correctAnswer"
+        type="text"
+        class="form-control form-control-lg"
+        formControlName="correctAnswer"
+        placeholder="Type the correct answer"
+      />
+    </div>
+
+    <div class="d-flex justify-content-end gap-3">
+      <button type="button" class="btn btn-outline-secondary" (click)="onCancel()">
+        <i class="bi bi-x-circle"></i> Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        <i class="bi bi-save"></i> Save
+      </button>
+    </div>
+  </form>
+</div>

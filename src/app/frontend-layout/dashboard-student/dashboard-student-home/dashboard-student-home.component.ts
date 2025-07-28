@@ -87,7 +87,7 @@ export class DashboardStudentHomeComponent implements OnInit {
   }
 
   goToExams() {
-    this.router.navigate(['/student/exams']);
+    this.router.navigate(['/student/exam-list']);
   }
 
   goToLessonDetail(lessonId: string, lesson: any) {

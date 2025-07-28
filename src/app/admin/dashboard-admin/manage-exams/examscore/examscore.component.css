@@ -1,0 +1,141 @@
+/* Table Header Styling (keep vibrant, clean) */
+.table-primary {
+  background: linear-gradient(45deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  font-weight: 600;
+}
+
+/* Table body cells */
+.table th,
+.table td {
+  vertical-align: middle;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  user-select: none;
+}
+
+/* Remove heavy row background, use subtle hover effect */
+.table-row-hover:hover {
+  cursor: pointer;
+  transform: translateX(6px) scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  background-color: transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Animate rows on load (slide from left) */
+@keyframes slideInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+tbody tr {
+  animation: slideInLeft 0.4s ease forwards;
+}
+
+/* Icons in table headers */
+.header-icon {
+  opacity: 0.4;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  cursor: default;
+}
+
+.header-cell:hover .header-icon {
+  opacity: 1;
+  transform: translateY(-3px) scale(1.15);
+}
+
+/* Score cell with star icon color accent */
+td.text-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  font-weight: 700;
+  color: #28a745; /* bright green */
+}
+
+td.text-success::before {
+  content: "★";
+  color: #ffc107; /* gold star */
+  font-size: 1rem;
+}
+
+/* Submitted badge styling */
+.submitted-badge {
+  font-weight: 600;
+  padding: 0.3rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  cursor: default;
+  user-select: none;
+  display: inline-block;
+}
+
+/* Success */
+.submitted-badge.bg-success {
+  background-color: #28a745;
+  box-shadow: 0 0 8px #28a745aa;
+  color: #fff;
+}
+
+.submitted-badge.bg-success:hover {
+  box-shadow: 0 0 14px #28a745ee;
+}
+
+/* Secondary (not submitted) */
+.submitted-badge.bg-secondary {
+  background-color: #6c757d;
+  color: #eee;
+  opacity: 0.85;
+  box-shadow: none;
+}
+
+/* Time columns: subtle clock icons */
+td.text-nowrap.text-muted {
+  position: relative;
+  padding-left: 1.8rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+td.text-nowrap.text-muted:nth-child(5)::before {
+  content: "\f017"; /* FontAwesome clock unicode */
+  font-family: "Bootstrap Icons";
+  position: absolute;
+  left: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #007bff;
+  font-size: 1rem;
+  opacity: 0.3;
+}
+
+td.text-nowrap.text-muted:nth-child(6)::before {
+  content: "\f1da"; /* FontAwesome clock-history unicode */
+  font-family: "Bootstrap Icons";
+  position: absolute;
+  left: 0.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #007bff;
+  font-size: 1rem;
+  opacity: 0.3;
+}
+
+/* Modal content tweaks */
+.score-modal-content {
+  max-height: 70vh;
+  overflow-y: auto;
+  background: #fefefe; /* simpler, flat background */
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 6px 25px rgba(0, 0, 50, 0.12);
+}

@@ -1,0 +1,48 @@
+<div class="score-modal-content animate-fade-in">
+  <h4 class="text-primary mb-3 d-flex align-items-center">
+    <i class="bi bi-bar-chart-fill me-2 icon-pulse"></i>
+    Scores for "{{ exam.title }}"
+  </h4>
+
+  <div *ngIf="loading" class="alert alert-info d-flex align-items-center" role="status">
+    <i class="bi bi-arrow-clockwise spinning me-2"></i> Loading scores...
+  </div>
+
+  <div *ngIf="!scores.length && !loading" class="alert alert-warning d-flex align-items-center" role="alert">
+    <i class="bi bi-info-circle-fill me-2"></i> No scores yet.
+  </div>
+
+  <div class="table-responsive" *ngIf="scores.length && !loading">
+    <table class="table table-hover table-striped table-bordered align-middle shadow-sm animate-slide-up">
+      <thead class="table-primary text-center">
+        <tr>
+          <th scope="col" class="header-cell"># <i class="bi bi-sort-up ms-1 header-icon"></i></th>
+          <th scope="col" class="header-cell">Student <i class="bi bi-person-fill ms-1 header-icon"></i></th>
+          <th scope="col" class="header-cell">Score <i class="bi bi-star-fill ms-1 header-icon"></i></th>
+          <th scope="col" class="header-cell">Submitted <i class="bi bi-check-circle-fill ms-1 header-icon"></i></th>
+          <th scope="col" class="header-cell">Start <i class="bi bi-clock-fill ms-1 header-icon"></i></th>
+          <th scope="col" class="header-cell">End <i class="bi bi-clock-history ms-1 header-icon"></i></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let score of scores; let i = index" class="table-row-hover">
+          <td class="text-center fw-semibold">{{ i + 1 }}</td>
+          <td>{{ score.student.fullName }}</td>
+          <td class="text-center text-success fw-bold">{{ score.score }}</td>
+          <td class="text-center">
+            <span
+              class="badge submitted-badge"
+              [ngClass]="score.isSubmitted ? 'bg-success' : 'bg-secondary'"
+              [attr.aria-label]="score.isSubmitted ? 'Submitted' : 'Not Submitted'"
+              title="{{ score.isSubmitted ? 'Submitted' : 'Not Submitted' }}"
+            >
+              {{ score.isSubmitted ? 'Yes' : 'No' }}
+            </span>
+          </td>
+          <td class="text-nowrap text-muted">{{ score.startTime | date: 'short' }}</td>
+          <td class="text-nowrap text-muted">{{ score.endTime | date: 'short' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

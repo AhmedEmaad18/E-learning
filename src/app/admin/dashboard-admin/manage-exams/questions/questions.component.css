@@ -1,0 +1,235 @@
+/* Container */
+.questions-container {
+  border-radius: 12px;
+  background-color: #ffffff;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.questions-container:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Title Section */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.exam-title {
+  font-weight: 700;
+  color: #1d3557;
+}
+
+/* Question List */
+.question-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.question-item {
+  background: #ffffff;
+  border: 1px solid #e3e6f0;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  transition: box-shadow 0.3s ease, transform 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.question-item:hover,
+.question-item:focus-within {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+  border-color: #4e73df;
+  outline: none;
+}
+
+.question-content {
+  max-width: 85%;
+}
+
+.question-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-top: 0.25rem;
+  word-wrap: break-word;
+  line-height: 1.4;
+}
+
+.question-meta {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 0.35rem;
+}
+
+/* Badges */
+.type-badge {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  color: #fff;
+  text-transform: capitalize;
+  font-weight: 600;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.bg-primary {
+  background-color: #4e73df !important;
+}
+.bg-warning {
+  background-color: #f6c23e !important;
+  color: #212529 !important;
+}
+.bg-info {
+  background-color: #36b9cc !important;
+  color: #fff !important;
+}
+
+/* Buttons */
+.btn-outline-primary,
+.btn-outline-danger {
+  min-width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 2px;
+  transition: all 0.25s ease-in-out;
+  border-radius: 6px;
+}
+
+.btn-outline-primary:hover {
+  background-color: #4e73df;
+  border-color: #4e73df;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  border-color: #dc3545;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.btn-outline-primary:focus,
+.btn-outline-danger:focus {
+  box-shadow: 0 0 8px rgba(78, 115, 223, 0.6);
+  outline: none;
+}
+
+/* Spinner inside button */
+.spinner-border-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Pagination Controls */
+.pagination {
+  user-select: none;
+  --bs-pagination-link-color: #4e73df;
+  --bs-pagination-link-hover-bg: #e0e7ff;
+}
+
+.page-item.active .page-link {
+  background-color: #4e73df;
+  border-color: #4e73df;
+  color: #fff;
+  font-weight: 600;
+}
+
+.page-link {
+  border-radius: 6px;
+  padding: 0.4rem 0.9rem;
+  transition: background-color 0.2s ease;
+}
+
+.page-link:hover:not(.disabled) {
+  background-color: #dbe4ff;
+}
+
+/* Modal Overrides and Enhancements */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.d-block {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-dialog-scrollable .modal-content {
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  animation: modalSlideDown 0.35s ease forwards;
+}
+
+.modal-body {
+  overflow-y: auto;
+  flex-grow: 1;
+  padding: 1.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #4e73df #e0e0e0;
+}
+
+/* Scrollbar for webkit browsers */
+.modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-body::-webkit-scrollbar-track {
+  background: #e0e0e0;
+  border-radius: 6px;
+}
+.modal-body::-webkit-scrollbar-thumb {
+  background-color: #4e73df;
+  border-radius: 6px;
+}
+
+/* Modal Slide Down Animation */
+@keyframes modalSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibility Focus Outline for modal close btn */
+.btn-close:focus {
+  box-shadow: 0 0 5px 2px rgba(78, 115, 223, 0.7);
+  outline: none;
+}

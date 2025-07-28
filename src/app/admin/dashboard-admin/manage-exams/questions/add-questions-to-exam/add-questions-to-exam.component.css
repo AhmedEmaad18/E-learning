@@ -1,0 +1,20 @@
+.card-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.fw-medium {
+  font-weight: 500;
+}
+
+textarea.form-control {
+  resize: vertical;
+}
+
+.input-group .form-control {
+  border-right: 0;
+}
+
+.input-group .btn {
+  border-left: 0;
+}
