@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiResponse, ExamResult, ExamStatusResponse, ExamSubmitResponse, StudentExam, StudentExamStartResponse } from '../models/model';
 
 @Injectable({
@@ -18,11 +18,10 @@ export class ExamService {
     return this.http.get<any[]>(`${this.apiUrl}/exam`, { headers });
   }
   constructor(private http: HttpClient) {}
-
   private getHeaders(): HttpHeaders {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvdXNzZWZob3NzYW0yMDVAZ21haWwuY29tIiwiX2lkIjoiNjg3ODE5NmY4ZWI2MDliYTE2MTUzODI2IiwiaWF0IjoxNzUzMTc4NzQ0LCJleHAiOjE3NTMyNjUxNDR9.RO5ebWfcJiJbdDPUzZomT-RJS5-HU1WPMEEc40qcJtk';
-    if (token) {
+   const token = localStorage.getItem('token');
+
+      if (token) {
       return new HttpHeaders({
         token: token,
       });
@@ -30,6 +29,7 @@ export class ExamService {
     return new HttpHeaders();
   }
 
+ 
   getExams(): Observable<ApiResponse<any>> {
     return this.http.get<ApiResponse<any>>(this.baseUrl, { headers: this.getHeaders() });
   }
@@ -106,5 +106,10 @@ getAllStudentExams(): Observable<ApiResponse<StudentExam[]>> {
   );
 }
 
+ private averageScoreSubject = new BehaviorSubject<string | number>('-');
+  averageScore$ = this.averageScoreSubject.asObservable();
 
+  setAverageScore(score: string | number) {
+    this.averageScoreSubject.next(score);
+  }
 }

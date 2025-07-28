@@ -9,7 +9,7 @@ export interface ExamDetails {
   title: string;
   description: string;
   duration: number;
-  questions: string[];
+  questions?: (string | { _id: string })[];
   createdBy: string;
   classLevel: string;
   isPublished: boolean;
@@ -89,4 +89,26 @@ export interface Answer {
   selectedAnswer: string;
   isCorrect: boolean;
   questionText?: string; // Optional question content from exam
+}
+
+export interface ExamScore {
+  _id: string;
+  student: {
+    _id: string;
+    fullName: string;
+  };
+  exam: {
+    _id: string;
+    title: string;
+  };
+  startTime: string;
+  endTime: string;
+  isSubmitted: boolean;
+  score: number;
+  answers: {
+    question: string;
+    selectedAnswer: string;
+    isCorrect: boolean;
+    _id: string;
+  }[];
 }

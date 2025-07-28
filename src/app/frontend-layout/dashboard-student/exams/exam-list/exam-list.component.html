@@ -3,11 +3,16 @@
   <h1 class="text-primary gradient-bg">Exams & Assessments</h1>
   <h5>Test your knowledge and track your progress</h5>
 
-  <div *ngIf="loading" class="loading">Loading exams...</div>
+<div *ngIf="loading" class="loading-spinner">
+  <div class="spinner"></div>
+  <span class="loading-text">Loading exams...</span>
+</div>
+
   <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
 <div class="stats">
   <div class="stat-box">
     <div>
+
       <h6>Available Exams</h6>
       <div class="display-4">{{ availableExams.length }}</div>
     </div>

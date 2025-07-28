@@ -1,0 +1,75 @@
+<div class="card shadow border-0 animate__animated animate__fadeIn">
+  <div class="card-body">
+    <h5 class="card-title text-primary">
+      Add Question to: <span class="text-dark fw-semibold">{{ exam.title }}</span>
+    </h5>
+    <hr />
+
+    <!-- Question Type -->
+    <div class="mb-3">
+      <label class="form-label fw-medium">Question Type</label>
+      <select class="form-select" [(ngModel)]="question.type">
+        <option value="">Select type</option>
+        <option value="multiple-choice">Multiple Choice</option>
+        <option value="true-false">True/False</option>
+        <option value="short-answer">Short Answer</option>
+      </select>
+    </div>
+
+    <!-- Question Text -->
+    <div class="mb-3">
+      <label class="form-label fw-medium">Question Text</label>
+      <input type="text" class="form-control" [(ngModel)]="question.text" placeholder="Enter your question..." />
+    </div>
+
+    <!-- Multiple Choice -->
+    <div *ngIf="question.type === 'multiple-choice'" class="mb-3">
+      <label class="form-label fw-medium">Options</label>
+      <div *ngFor="let opt of question.options; let i = index" class="input-group mb-2">
+        <input class="form-control" [(ngModel)]="question.options[i]" placeholder="Option {{ i + 1 }}" />
+        <button type="button" class="btn btn-outline-danger" (click)="removeOption(i)">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+      <button class="btn btn-sm btn-outline-secondary mb-2" type="button" (click)="addOption()">
+        <i class="bi bi-plus-circle"></i> Add Option
+      </button>
+
+      <label class="form-label fw-medium">Correct Answer</label>
+      <select class="form-select" [(ngModel)]="question.correctAnswer">
+        <option *ngFor="let opt of question.options" [value]="opt">{{ opt }}</option>
+      </select>
+    </div>
+
+    <!-- True/False -->
+    <div *ngIf="question.type === 'true-false'" class="mb-3">
+      <label class="form-label fw-medium">Correct Answer</label>
+      <select class="form-select" [(ngModel)]="question.correctAnswer">
+        <option value="True">True</option>
+        <option value="False">False</option>
+      </select>
+    </div>
+
+    <!-- Short Answer -->
+    <div *ngIf="question.type === 'short-answer'" class="mb-3">
+      <label class="form-label fw-medium">Expected Answer</label>
+      <textarea class="form-control" rows="3" [(ngModel)]="question.correctAnswer" placeholder="Write the correct answer..."></textarea>
+    </div>
+
+    <!-- Points -->
+    <div class="mb-3">
+      <label class="form-label fw-medium">Points</label>
+      <input type="number" class="form-control" [(ngModel)]="question.points" min="1" />
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="text-end">
+      <button class="btn btn-secondary me-2" (click)="close.emit()">
+        <i class="bi bi-x-circle"></i> Cancel
+      </button>
+      <button class="btn btn-success" (click)="submit()">
+        <i class="bi bi-save2"></i> Save Question
+      </button>
+    </div>
+  </div>
+</div>

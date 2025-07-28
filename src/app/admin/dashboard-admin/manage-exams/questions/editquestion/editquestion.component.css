@@ -1,0 +1,176 @@
+/* Modal Overlay */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  backdrop-filter: blur(3px); /* subtle blur behind modal */
+}
+
+.modal-overlay.fade-in {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Modal Form Container */
+.edit-question-form {
+  width: 100%;
+  max-width: 600px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.15),
+    0 4px 8px rgba(0, 0, 0, 0.06);
+  padding: 2rem 2.5rem;
+  animation: slideDownFade 0.45s ease forwards;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #212529;
+}
+
+/* Header */
+.edit-question-form h4 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #0d6efd;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Input & Select Styles */
+.form-control,
+.form-select {
+  font-size: 1rem;
+  padding: 0.65rem 1rem;
+  border: 1.8px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control::placeholder {
+  color: #adb5bd;
+  font-style: italic;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 10px rgba(13, 110, 253, 0.3);
+  outline: none;
+}
+
+/* Labels */
+.form-label {
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: #495057;
+}
+
+/* Input groups for options */
+.input-group {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.input-group-text {
+  background-color: #f8f9fa;
+  border: 1.8px solid #ced4da;
+  border-right: none;
+  color: #495057;
+  font-size: 1.15rem;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Buttons */
+button {
+  font-weight: 600;
+  padding: 0.6rem 1.6rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+button i {
+  font-size: 1.2rem;
+  margin: 0; /* remove margin to align nicely with gap */
+}
+
+/* Cancel Button */
+.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background-color: transparent;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+}
+
+/* Save Button */
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(13, 110, 253, 0.4);
+}
+
+.btn-primary:disabled {
+  background-color: #a6c8ff;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.btn-primary:not(:disabled):hover {
+  background-color: #0843c9;
+  box-shadow: 0 6px 20px rgba(8, 67, 201, 0.7);
+}
+
+/* Footer Buttons Container */
+.d-flex.justify-content-end.gap-3 {
+  margin-top: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .edit-question-form {
+    padding: 1.5rem 1.25rem;
+    border-radius: 1rem;
+  }
+
+  .form-control,
+  .form-select {
+    font-size: 0.95rem;
+    padding: 0.5rem 0.85rem;
+  }
+
+  button {
+    font-size: 0.95rem;
+    padding: 0.5rem 1.25rem;
+  }
+}
+
+/* Slide down + fade animation */
+@keyframes slideDownFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

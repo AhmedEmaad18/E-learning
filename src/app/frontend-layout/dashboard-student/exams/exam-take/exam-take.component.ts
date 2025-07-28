@@ -84,8 +84,8 @@ this.startTimer();
 
         // Handle questions array (IDs) vs. full objects
         if (
-          res.data.exam.questions.length > 0 &&
-          typeof res.data.exam.questions[0] === 'string'
+          res.data.exam.questions!.length > 0 &&
+          typeof res.data.exam.questions![0] === 'string'
         ) {
           this.examService.getExamById(this.studentExamId).subscribe({
             next: (examRes) => {
