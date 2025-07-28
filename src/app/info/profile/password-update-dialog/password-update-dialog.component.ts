@@ -26,8 +26,10 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+
     MatIconModule,
     CommonModule,
+
   ],
 })
 export class PasswordUpdateDialogComponent {

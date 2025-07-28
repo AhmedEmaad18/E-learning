@@ -1,30 +1,12 @@
 import { Routes } from '@angular/router';
-import { ExamListComponent } from './frontend-layout/dashboard-student/exams/exam-list/exam-list.component';
-import { ExamTakeComponent } from './frontend-layout/dashboard-student/exams/exam-take/exam-take.component';
-import { ExamResultComponent } from './frontend-layout/dashboard-student/exams/exam-result/exam-result.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { AuthGuard, AdminGuard } from './core/guard/auth.guard';
-import { inject } from '@angular/core';
-import { AuthService } from './core/services/auth.service';
-import { Router } from '@angular/router';
 import { ForgotResetPasswordComponent } from './auth/forgot-reset-password/forgot-reset-password.component';
-
-function roleBasedRedirect() {
-  const authService = inject(AuthService);
-  const router = inject(Router);
-  const user = authService.getCurrentUser();
-  if (user?.role && user.role.toLowerCase().includes('admin')) {
-    return '/admin/dashboard';
-  } else if (user) {
-    return '/student/dashboard';
-  } else {
-    return '/login';
-  }
-}
+import { RedirectHandlerComponent } from './core/auth/redirect-handler/redirect-handler.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: roleBasedRedirect, pathMatch: 'full' },
+  { path: '', component: RedirectHandlerComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-reset-password', component: ForgotResetPasswordComponent },
@@ -77,10 +59,25 @@ export const routes: Routes = [
           import(
             './frontend-layout/dashboard-student/my-scores/my-scores.component'
           ).then((m) => m.MyScoresComponent),
+      },{
+        path: 'exam-list',
+        loadComponent: () =>
+          import(
+            './frontend-layout/dashboard-student/exams/exam-list/exam-list.component'
+          ).then((m) => m.ExamListComponent),
+      },{
+        path: 'exam-start/:examId',
+        loadComponent: () =>
+          import(
+            './frontend-layout/dashboard-student/exams/exam-take/exam-take.component'
+          ).then((m) => m.ExamTakeComponent),
+      },{
+        path: 'exam-results/:studentExamId',
+        loadComponent: () =>
+          import(
+            './frontend-layout/dashboard-student/exams/exam-result/exam-result.component'
+          ).then((m) => m.ExamResultComponent),
       },
-      { path: 'exam-list', component: ExamListComponent },
-      { path: 'exam-start/:examId', component: ExamTakeComponent }, // changed param name here
-      { path: 'exam-results/:studentExamId', component: ExamResultComponent }, // likewise here
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
@@ -140,5 +137,5 @@ export const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
-  { path: '**', redirectTo: roleBasedRedirect },
+  { path: '**', redirectTo: '' },
 ];
