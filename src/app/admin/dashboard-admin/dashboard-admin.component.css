@@ -161,7 +161,7 @@ mat-nav-list a mat-icon {
   height: 38px;
   border-radius: 50%;
   background: #e3e6f8;
-  color: #1976d2;
+  color:#17a2b8  ;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -228,9 +228,6 @@ mat-nav-list a mat-icon {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-.profile-icon {
-  font-size: 24px;
-}
 
 .admin-info {
   text-align: left;
@@ -284,11 +281,9 @@ mat-nav-list a mat-icon {
   .nav-closed .admin-name {
     display: none;
   }
-  .profile-icon {
-    font-size: 22px;
-    margin-left: 8px;
-  }
+
   .admin-menu-trigger {
     padding: 4px 8px;
   }
 }
+

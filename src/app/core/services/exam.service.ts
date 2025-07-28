@@ -1,16 +1,18 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiResponse, ExamResult, ExamStatusResponse, ExamSubmitResponse, StudentExam, StudentExamStartResponse } from '../models/model';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExamService {
   private baseUrl = 'https://edu-master-delta.vercel.app/exam';
-  private studentExamBaseUrl = 'https://edu-master-delta.vercel.app/studentExam';
- private apiUrl = 'https://edu-master-delta.vercel.app';
-
+  private studentExamBaseUrl =
+    'https://edu-master-delta.vercel.app/studentExam';
+  private apiUrl = 'https://edu-master-delta.vercel.app';
 
   getAllExams(): Observable<any[]> {
     const token = localStorage.getItem('token');
@@ -19,9 +21,9 @@ export class ExamService {
   }
   constructor(private http: HttpClient) {}
   private getHeaders(): HttpHeaders {
-   const token = localStorage.getItem('token');
 
-      if (token) {
+    const token = localStorage.getItem('token');
+    if (token) {
       return new HttpHeaders({
         token: token,
       });
@@ -29,9 +31,11 @@ export class ExamService {
     return new HttpHeaders();
   }
 
- 
+
   getExams(): Observable<ApiResponse<any>> {
-    return this.http.get<ApiResponse<any>>(this.baseUrl, { headers: this.getHeaders() });
+    return this.http.get<ApiResponse<any>>(this.baseUrl, {
+      headers: this.getHeaders(),
+    });
   }
 
   startExam(examId: string): Observable<ApiResponse<StudentExamStartResponse>> {
@@ -58,27 +62,30 @@ export class ExamService {
       headers: this.getHeaders(),
     });
   }
-getStudentExam(studentExamId: string): Observable<ApiResponse<ExamResult>> {
-  return this.http.get<ApiResponse<ExamResult>>(`${this.studentExamBaseUrl}/score/${studentExamId}`, {
-    headers: this.getHeaders(),
-  });
-}
-
+  getStudentExam(studentExamId: string): Observable<ApiResponse<ExamResult>> {
+    return this.http.get<ApiResponse<ExamResult>>(
+      `${this.studentExamBaseUrl}/score/${studentExamId}`,
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
 
   getExamScoreStudent(studentExamId: string): Observable<any> {
-  return this.http.get<any>(`${this.studentExamBaseUrl}/exams/score/${studentExamId}`, {
-    headers: this.getHeaders(),
-  });
-}
+    return this.http.get<any>(
+      `${this.studentExamBaseUrl}/exams/score/${studentExamId}`,
+      {
+        headers: this.getHeaders(),
+      }
+    );
+  }
 
-
-getAllStudentExams(): Observable<ApiResponse<StudentExam[]>> {
-  return this.http.get<ApiResponse<StudentExam[]>>(
-    `${this.studentExamBaseUrl}`,
-    { headers: this.getHeaders() }
-  );
-}
-
+  getAllStudentExams(): Observable<ApiResponse<StudentExam[]>> {
+    return this.http.get<ApiResponse<StudentExam[]>>(
+      `${this.studentExamBaseUrl}`,
+      { headers: this.getHeaders() }
+    );
+  }
 
   checkIfSubmitted(examId: string): Observable<{ success: boolean }> {
     return this.http.get<{ success: boolean }>(
@@ -96,6 +103,7 @@ getAllStudentExams(): Observable<ApiResponse<StudentExam[]>> {
 
   // Updated method: requires dummyAnswer with questionId and selectedAnswer to avoid errors
   checkExamSubmissionStatus(
+
   examId: string,
   answers: { questionId: string; selectedAnswer: string }[]
 ): Observable<{ success: boolean; message: string }> {
@@ -111,5 +119,19 @@ getAllStudentExams(): Observable<ApiResponse<StudentExam[]>> {
 
   setAverageScore(score: string | number) {
     this.averageScoreSubject.next(score);
-  }
+
+
+//   getAllStudentsScoresForExam(
+//     examId: string,
+//     studentName?: string
+//   ): Observable<any> {
+//     let url = `${this.studentExamBaseUrl}/exams/${examId}`;
+//     if (studentName) {
+//       url += `?studentName=${encodeURIComponent(studentName)}`;
+//     }
+//     return this.http.get<any>(url, { headers: this.getHeaders() });
+
+//   }
+// }
+}
 }

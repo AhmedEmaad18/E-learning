@@ -1,1 +1,211 @@
-<p>reports works!</p>
+<h2 class="report-title text-danger">
+  <span class="material-icons">bar_chart</span> Exam Reports
+</h2>
+
+<div *ngIf="loading" class="loading-container">
+  <span class="material-icons spin">autorenew</span> Loading report...
+</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngIf="!loading && !error">
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <div class="filter-header">
+      <span class="material-icons">filter_list</span>
+      <h3>Filters & Search</h3>
+    </div>
+
+    <div class="filter-grid">
+      <!-- Exam Title Filter -->
+      <div class="filter-group">
+        <label for="examTitleFilter">
+          <span class="material-icons">assignment</span>
+          Exam Title
+        </label>
+        <input
+          type="text"
+          id="examTitleFilter"
+          [(ngModel)]="examTitleFilter"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Search by exam title..."
+          class="filter-input"
+        />
+      </div>
+
+      <!-- Student Name Filter -->
+      <div class="filter-group">
+        <label for="studentNameFilter">
+          <span class="material-icons">person</span>
+          Student Name
+        </label>
+        <input
+          type="text"
+          id="studentNameFilter"
+          [(ngModel)]="studentNameFilter"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Search by student name..."
+          class="filter-input"
+        />
+      </div>
+
+      <!-- Score Range Filters -->
+      <div class="filter-group">
+        <label for="minScoreFilter">
+          <span class="material-icons">trending_up</span>
+          Min Score
+        </label>
+        <input
+          type="number"
+          id="minScoreFilter"
+          [(ngModel)]="minScoreFilter"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Min score..."
+          class="filter-input"
+          min="0"
+          max="100"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label for="maxScoreFilter">
+          <span class="material-icons">trending_down</span>
+          Max Score
+        </label>
+        <input
+          type="number"
+          id="maxScoreFilter"
+          [(ngModel)]="maxScoreFilter"
+          (ngModelChange)="onFilterChange()"
+          placeholder="Max score..."
+          class="filter-input"
+          min="0"
+          max="100"
+        />
+      </div>
+
+      <!-- Sort Options -->
+      <div class="filter-group">
+        <label for="sortBy">
+          <span class="material-icons">sort</span>
+          Sort By
+        </label>
+        <select
+          id="sortBy"
+          [(ngModel)]="sortBy"
+          (ngModelChange)="onFilterChange()"
+          class="filter-input"
+        >
+          <option value="examTitle">Exam Title</option>
+          <option value="studentCount">Number of Students</option>
+          <option value="averageScore">Average Score</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>
+          <span class="material-icons">swap_vert</span>
+          Order
+        </label>
+        <button
+          (click)="toggleSortOrder()"
+          class="sort-order-btn"
+          [class.active]="sortOrder === 'desc'"
+        >
+          <span class="material-icons">
+            {{ sortOrder === "asc" ? "arrow_upward" : "arrow_downward" }}
+          </span>
+          {{ sortOrder === "asc" ? "Ascending" : "Descending" }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter Actions -->
+    <div class="filter-actions">
+      <button (click)="clearFilters()" class="clear-filters-btn">
+        <span class="material-icons">clear</span>
+        Clear All Filters
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary Statistics -->
+  <div class="summary-stats">
+    <div class="stat-card">
+      <span class="material-icons">school</span>
+      <div class="stat-content">
+        <span class="stat-value">{{ filteredExamsWithScores.length }}</span>
+        <span class="stat-label">Exams</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <span class="material-icons">people</span>
+      <div class="stat-content">
+        <span class="stat-value">{{ getTotalStudents() }}</span>
+        <span class="stat-label">Total Students</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <span class="material-icons">analytics</span>
+      <div class="stat-content">
+        <span class="stat-value">{{
+          getOverallAverageScore() | number : "1.1-2"
+        }}</span>
+        <span class="stat-label">Overall Average</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Section -->
+  <div class="results-section">
+    <div class="results-header">
+      <h3>
+        <span class="material-icons">list</span>
+        Results ({{ filteredExamsWithScores.length }} exams)
+      </h3>
+    </div>
+
+    <div *ngIf="filteredExamsWithScores.length === 0" class="no-results">
+      <span class="material-icons">search_off</span>
+      <p>No exams match your current filters.</p>
+      <button (click)="clearFilters()" class="clear-filters-btn">
+        Clear Filters
+      </button>
+    </div>
+
+    <div *ngFor="let examBlock of filteredExamsWithScores" class="exam-card">
+      <div class="exam-header">
+        <span class="material-icons exam-icon">assignment</span>
+        <span class="exam-title">{{ examBlock.exam.title }}</span>
+        <span class="exam-id">({{ examBlock.exam._id }})</span>
+      </div>
+      <table class="scores-table" *ngIf="examBlock.scores.length > 0">
+        <thead>
+          <tr>
+            <th><span class="material-icons">person</span> Student Name</th>
+            <th><span class="material-icons">star</span> Score</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let s of examBlock.scores; let i = index"
+            [class.striped]="i % 2 === 1"
+          >
+            <td>{{ s.student?.fullName || s.fullName || s.name || "N/A" }}</td>
+            <td>{{ s.score }}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr class="summary-row">
+            <td>Total Students: {{ examBlock.scores.length }}</td>
+            <td>
+              Avg: {{ getAverageScore(examBlock.scores) | number : "1.1-2" }}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <div *ngIf="examBlock.scores.length === 0" class="no-scores">
+        <span class="material-icons">info</span> No scores found for this exam.
+      </div>
+    </div>
+  </div>
+</div>
