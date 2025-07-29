@@ -1,0 +1,96 @@
+<div
+  class="welcome-section mat-elevation-z2"
+  style="background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%)"
+>
+  <h2>Hello, {{ user?.fullName || "Student" }}!</h2>
+  <p>Ready to continue your learning journey?</p>
+  <div class="dashboard-badges">
+    <span class="badge role">Class: {{ user?.classLevel || "-" }}</span>
+    <span class="badge access">Level: Intermediate</span>
+  </div>
+</div>
+<div *ngIf="loading" class="loading-center">
+  <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!loading">
+  <div class="dashboard-lists">
+    <div class="recent-activity">
+      <h3>Lessons <span class="hint-text">(Click to view details)</span></h3>
+      <ng-container *ngIf="lessons.length; else noLessons">
+        <div
+          class="lesson-item"
+          *ngFor="let lesson of lessons"
+          (click)="goToLessonDetail(lesson._id, lesson)"
+          style="cursor: pointer"
+          [ngClass]="{ 'paid-lesson': lesson.price && lesson.price > 0 }"
+        >
+          <div>
+            <div class="lesson-title">
+              {{ lesson.title }}
+              <span
+                *ngIf="lesson.price && lesson.price > 0"
+                class="paid-indicator"
+              >
+                <mat-icon>lock</mat-icon> Premium
+              </span>
+            </div>
+            <div class="lesson-duration" *ngIf="lesson.duration">
+              {{ lesson.duration }} min
+            </div>
+            <div class="lesson-description" *ngIf="lesson.description">
+              {{ lesson.description }}
+            </div>
+          </div>
+          <span class="lesson-badge" [ngClass]="lesson.price ? 'paid' : 'free'">
+            {{ lesson.price ? "$" + lesson.price : "FREE" }}
+          </span>
+        </div>
+        <button
+          mat-stroked-button
+          color="primary"
+          class="view-more-btn"
+          (click)="goToLessons()"
+        >
+          View More Lessons <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </ng-container>
+      <ng-template #noLessons>
+        <div class="lesson-item">No lessons found.</div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="dashboard-lists">
+    <div class="recent-activity">
+      <h3>Exams <span class="hint-text">(Click to start)</span></h3>
+      <ng-container *ngIf="exams.length; else noExams">
+        <div
+          class="exam-item"
+          *ngFor="let exam of exams"
+          (click)="startExam(exam._id)"
+          style="cursor: pointer"
+        >
+          <div>
+            <div class="exam-title">{{ exam.title || exam.name }}</div>
+            <div class="exam-duration" *ngIf="exam.duration">
+              Duration: {{ exam.duration }} min
+            </div>
+            <div class="exam-description" *ngIf="exam.description">
+              {{ exam.description }}
+            </div>
+          </div>
+        </div>
+        <button
+          mat-stroked-button
+          color="primary"
+          class="view-more-btn"
+          (click)="goToExams()"
+        >
+          View More Exams <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </ng-container>
+      <ng-template #noExams>
+        <div class="lesson-item">No exams found.</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

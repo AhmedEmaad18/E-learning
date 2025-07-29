@@ -1,1 +1,128 @@
-<p>lesson-list works!</p>
+<section>
+  <div class="container mb-4">
+    <ng-container *ngIf="isLoading; else lessonContent">
+      <div
+        class="d-flex justify-content-center align-items-center"
+        style="height: 80vh"
+      >
+        <div
+          class="spinner-border text-primary"
+          role="status"
+          style="width: 6rem; height: 6rem; border-width: 0.6rem"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #lessonContent>
+      <!-- Header -->
+      <div id="lessonsHeader" class="p-5 rounded-4 text-white shadow bg-primary">
+        <h1 class="display-6 fw-bold mb-2">Explore Lessons</h1>
+        <p>Discover a wide range of subjects and expand your knowledge</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="bg-white border rounded-4 p-4 shadow-lg my-4">
+        <div class="row g-4 align-items-center">
+          <!-- Level Filter -->
+          <div class="col-md-4">
+            <label for="level" class="form-label fw-semibold">Level:</label>
+            <select
+              class="form-select"
+              id="level"
+              (change)="toggleLevelFilter($event)"
+            >
+              <option value="" selected>Choose Grade</option>
+              <option value="Grade 1 Secondary">Grade 1 Secondary</option>
+              <option value="Grade 2 Secondary">Grade 2 Secondary</option>
+              <option value="Grade 3 Secondary">Grade 3 Secondary</option>
+            </select>
+          </div>
+
+          <!-- Free Only Filter -->
+          <div class="col-md-4 d-flex align-items-center pt-4">
+            <div class="form-check">
+              <input
+                type="checkbox"
+                class="form-check-input me-2"
+                id="freeOnly"
+                (change)="toggleFreeOnly($event)"
+              />
+              <label class="form-check-label fw-semibold" for="freeOnly">
+                Free lessons only
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Alerts -->
+      <div *ngIf="filteredLessons.length === 0 && lessons.length > 0">
+        <div class="alert alert-warning mt-3" *ngIf="isLessonsFree && selectedLevel">
+          No free lessons available for the selected level.
+        </div>
+        <div class="alert alert-warning mt-3" *ngIf="isLessonsFree && !selectedLevel">
+          No free lessons available at the moment.
+        </div>
+        <div class="alert alert-warning mt-3" *ngIf="!isLessonsFree && selectedLevel">
+          No lessons found for the selected level.
+        </div>
+      </div>
+
+      <!-- Lessons Grid -->
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" *ngFor="let lesson of filteredLessons; trackBy: trackLesson">
+          <div class="card lesson-card h-100 border-0 shadow-sm overflow-hidden">
+            <div class="position-relative">
+              <img
+                [src]=" 'https://www.flowsols.com/wp-content/uploads/2021/10/video.jpg'"
+                class="card-img-top w-100 lesson-img"
+                alt="{{ lesson.title }}"
+              />
+              <span
+                class="badge position-absolute top-0 end-0 m-2 p-2 fs-6"
+                [ngClass]="lesson.isPaid ? 'bg-primary' : 'bg-success'"
+              >
+                {{ lesson.isPaid ? ('$' + lesson.price) : 'FREE' }}
+              </span>
+            </div>
+
+            <div class="card-body d-flex flex-column">
+              <span class="text-primary fw-semibold small mb-1">
+                {{ lesson.classLevel }}
+              </span>
+              <h5 class="card-title">{{ lesson.title }}</h5>
+              <p class="card-text text-muted small">{{ lesson.description }}</p>
+
+              <ng-container *ngIf="!lesson.isPaid">
+                <span class="text-success fw-bold">Free</span>
+              </ng-container>
+
+              <ng-container *ngIf="lesson.isPaid">
+                <div *ngIf="!isPurchased(lesson._id); else purchasedBlock">
+                  <button
+                    class="btn btn-gradient-purple-pink text-white fw-semibold mt-auto"
+                    (click)="payment(lesson)"
+                  >
+                    Buy to Watch
+                  </button>
+                </div>
+                <ng-template #purchasedBlock>
+                  <div class="d-flex justify-content-between align-items-center mt-auto">
+                    <a
+                      [routerLink]="'/student/lesson/' + lesson._id"
+                      class="btn btn-sm btn-outline-gradient text-dark fw-semibold px-3 py-1 rounded-pill"
+                    >
+                      Show Details
+                    </a>
+                    <span class="text-success fw-semibold small">✓ Purchased</span>
+                  </div>
+                </ng-template>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</section>

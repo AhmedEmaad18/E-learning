@@ -1,0 +1,71 @@
+<div class="profile-container">
+  <button mat-icon-button class="back-button" (click)="backToDashboard()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <div class="profile-card">
+    <div class="profile-header">
+      <h1 class="profile-title">Profile Settings</h1>
+      <p class="profile-subtitle">Manage your account and settings</p>
+    </div>
+
+    <!-- User Info -->
+    <mat-card class="user-info-card">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon color="primary">person</mat-icon>
+          User Information
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="user-details">
+        <p><strong>Name:</strong> {{ currentUser?.fullName }}</p>
+        <p><strong>Email:</strong> {{ currentUser?.email }}</p>
+        <p *ngIf="currentUser?.classLevel">
+          <strong>Class Level:</strong> {{ currentUser?.classLevel }}
+        </p>
+        <p *ngIf="currentUser?.role">
+          <strong>Role:</strong>
+          <span class="role-badge">{{ currentUser?.role | titlecase }}</span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Actions -->
+    <div class="profile-actions">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openProfileUpdateDialog()"
+      >
+        <mat-icon>edit</mat-icon>
+        Update Profile
+      </button>
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="openPasswordUpdateDialog()"
+      >
+        <mat-icon>lock_reset</mat-icon>
+        Update Password
+      </button>
+      <button
+        *ngIf="isSuperAdmin()"
+        mat-raised-button
+        color="warn"
+        (click)="openCreateAdminDialog()"
+      >
+        <mat-icon>person_add</mat-icon>
+        Create New Admin
+      </button>
+    </div>
+
+    <!-- Logout and Delete -->
+    <div class="account-management">
+      <button mat-stroked-button color="primary" (click)="logout()">
+        Logout
+      </button>
+      <button mat-stroked-button color="warn" (click)="confirmDeleteAccount()">
+        Delete Account
+      </button>
+    </div>
+  </div>
+</div>

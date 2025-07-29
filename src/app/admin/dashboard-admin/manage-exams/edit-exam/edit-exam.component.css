@@ -1,0 +1,64 @@
+/* Modal fade-in and content slide-up */
+.enhanced-modal {
+  animation: fadeInBackground 0.3s ease forwards;
+}
+
+.animate-modal {
+  animation: slideInModal 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1rem !important;
+}
+
+/* Background fade-in */
+@keyframes fadeInBackground {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+  to {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Modal content slide animation */
+@keyframes slideInModal {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Input focus glow */
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 8px rgba(78, 115, 223, 0.5);
+  border-color: #4e73df;
+}
+
+/* Large buttons and hover transitions */
+.btn-lg {
+  border-radius: 0.5rem;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  background-color: #2e59d9;
+  box-shadow: 0 6px 12px rgba(46, 89, 217, 0.6);
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+  box-shadow: 0 4px 8px rgba(173, 181, 189, 0.4);
+}
+
+/* Modal header adjustments */
+.modal-header .btn-close {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+.modal-header .btn-close:hover {
+  opacity: 1;
+}

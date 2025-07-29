@@ -1,0 +1,107 @@
+<div
+  class="modal fade show enhanced-modal"
+  tabindex="-1"
+  [ngClass]="{ 'd-block': visible }"
+  [style.background]="'rgba(0,0,0,0.5)'"
+  *ngIf="visible"
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content shadow-lg rounded-4 border-0 animate-modal">
+      <div class="modal-header border-0 pb-2">
+        <h5 class="modal-title fw-bold fs-4 d-flex align-items-center">
+          <i class="bi bi-pencil-square me-2 text-primary"></i>
+          Edit Exam
+        </h5>
+        <button type="button" class="btn-close" aria-label="Close" (click)="onCancel()"></button>
+      </div>
+
+      <form (ngSubmit)="onSave()">
+        <div class="modal-body pt-0">
+          <div class="mb-4">
+            <label class="form-label fw-semibold fs-6">
+              <i class="bi bi-card-text me-1 text-secondary"></i> Title
+            </label>
+            <input
+              type="text"
+              class="form-control form-control-lg shadow-sm"
+              [(ngModel)]="exam.title"
+              name="title"
+              required
+              autofocus
+            />
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-semibold fs-6">
+              <i class="bi bi-info-circle me-1 text-secondary"></i> Description
+            </label>
+            <textarea
+              class="form-control form-control-lg shadow-sm"
+              [(ngModel)]="exam.description"
+              name="description"
+              rows="3"
+              placeholder="Optional"
+            ></textarea>
+          </div>
+
+          <div class="row mb-4 gx-3">
+            <div class="col-md-6">
+              <label class="form-label fw-semibold fs-6">
+                <i class="bi bi-clock me-1 text-secondary"></i> Duration (mins)
+              </label>
+              <input
+                type="number"
+                class="form-control form-control-lg shadow-sm"
+                [(ngModel)]="exam.duration"
+                name="duration"
+                min="0"
+                placeholder="e.g. 90"
+              />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label fw-semibold fs-6">
+                <i class="bi bi-building me-1 text-secondary"></i> Class Level
+              </label>
+              <input
+                type="text"
+                class="form-control form-control-lg shadow-sm"
+                [(ngModel)]="exam.classLevel"
+                name="classLevel"
+                placeholder="e.g. Grade 10"
+              />
+            </div>
+          </div>
+
+          <div class="form-check form-switch mb-0">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              [(ngModel)]="exam.isPublished"
+              name="isPublished"
+              id="publishedCheck"
+            />
+            <label class="form-check-label fw-semibold fs-6" for="publishedCheck">
+              <i class="bi bi-megaphone-fill me-1 text-secondary"></i> Published
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer border-0 pt-3">
+          <button type="submit" class="btn btn-primary btn-lg shadow-sm d-flex align-items-center">
+            <i class="bi bi-save me-2"></i> Save Changes
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary btn-lg shadow-sm d-flex align-items-center"
+            (click)="onCancel()"
+          >
+            <i class="bi bi-x-circle me-2"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,131 @@
+<div class="add-exam-form p-4 bg-light rounded shadow-sm">
+  <h3 class="mb-4 text-primary">Add New Exam</h3>
+  <form (ngSubmit)="onSubmit()" #examForm="ngForm" novalidate>
+
+    <!-- Title -->
+    <div class="mb-3">
+      <label for="title" class="form-label fw-semibold">Title <span class="text-danger">*</span></label>
+      <input
+        id="title"
+        type="text"
+        class="form-control"
+        required
+        [(ngModel)]="exam.title"
+        name="title"
+        #title="ngModel"
+        aria-describedby="titleHelp"
+        [class.is-invalid]="title.invalid && title.touched"
+      />
+      <div *ngIf="title.invalid && title.touched" class="invalid-feedback">
+        Title is required.
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="description" class="form-label fw-semibold">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        rows="3"
+        [(ngModel)]="exam.description"
+        name="description"
+        placeholder="Optional detailed description"
+      ></textarea>
+    </div>
+
+    <!-- Duration -->
+    <div class="mb-3">
+      <label for="duration" class="form-label fw-semibold">Duration (minutes) <span class="text-danger">*</span></label>
+      <input
+        id="duration"
+        type="number"
+        min="1"
+        class="form-control"
+        required
+        [(ngModel)]="exam.duration"
+        name="duration"
+        #duration="ngModel"
+        aria-describedby="durationHelp"
+        [class.is-invalid]="duration.invalid && duration.touched"
+      />
+      <div *ngIf="duration.invalid && duration.touched" class="invalid-feedback">
+        Duration is required and must be a positive number.
+      </div>
+    </div>
+
+    <!-- Class Level -->
+    <div class="mb-3">
+      <label for="classLevel" class="form-label fw-semibold">Class Level <span class="text-danger">*</span></label>
+      <select
+        id="classLevel"
+        class="form-select"
+        required
+        [(ngModel)]="exam.classLevel"
+        name="classLevel"
+        #classLevel="ngModel"
+        [class.is-invalid]="classLevel.invalid && classLevel.touched"
+      >
+        <option value="" disabled>Select Class Level</option>
+        <option value="Grade 1 Secondary">Grade 1 Secondary</option>
+        <option value="Grade 2 Secondary">Grade 2 Secondary</option>
+        <option value="Grade 3 Secondary">Grade 3 Secondary</option>
+      </select>
+      <div *ngIf="classLevel.invalid && classLevel.touched" class="invalid-feedback">
+        Class level is required.
+      </div>
+    </div>
+
+    <!-- Published -->
+    <div class="mb-3 form-check">
+      <input
+        id="isPublished"
+        type="checkbox"
+        class="form-check-input"
+        [(ngModel)]="exam.isPublished"
+        name="isPublished"
+      />
+      <label for="isPublished" class="form-check-label">Published</label>
+    </div>
+
+    <!-- Start Date -->
+    <div class="mb-3">
+      <label for="startDate" class="form-label fw-semibold">Start Date</label>
+      <input
+        id="startDate"
+        type="date"
+        class="form-control"
+        [(ngModel)]="exam.startDate"
+        name="startDate"
+        [attr.min]="minDate"
+      />
+    </div>
+
+    <!-- End Date -->
+    <div class="mb-3">
+      <label for="endDate" class="form-label fw-semibold">End Date</label>
+      <input
+        id="endDate"
+        type="date"
+        class="form-control"
+        [(ngModel)]="exam.endDate"
+        name="endDate"
+        [attr.min]="exam.startDate || minDate"
+      />
+      <small class="form-text text-muted">End date cannot be earlier than start date.</small>
+    </div>
+
+   
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-end mt-4">
+      <button type="button" class="btn btn-outline-secondary me-3" (click)="cancel.emit()">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="examForm.invalid">
+        Add Exam
+      </button>
+    </div>
+
+  </form>
+</div>

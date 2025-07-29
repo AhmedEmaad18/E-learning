@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-
+import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component';
 @Component({
   selector: 'app-admin',
-  imports: [],
+  imports: [DashboardAdminComponent],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css'
 })
