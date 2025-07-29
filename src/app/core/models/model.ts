@@ -124,5 +124,5 @@ export interface Lesson {
   createdBy: string;
   createdAt: string;
   updatedAt: string;
-  __v: number;
 }
+

@@ -1,0 +1,119 @@
+<section>
+  <div class="container my-4">
+    @if (isLoading) {
+    <div
+      class="d-flex justify-content-center align-items-center"
+      style="height: 80vh"
+    >
+      <div
+        class="spinner-border text-primary"
+        role="status"
+        style="width: 5rem; height: 5rem; border-width: 0.5rem"
+      >
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    } @else {
+    <!-- Dashboard Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold">Manage Lessons</h2>
+      <button
+        class="btn btn-primary fw-semibold"
+        routerLink="/admin/lessons/add"
+      >
+        + Add New Lesson
+      </button>
+    </div>
+
+    <!-- Filters -->
+    <div class="bg-white border rounded-4 p-4 shadow-sm mb-4">
+      <div class="row g-4 align-items-center">
+        <!-- Level Filter -->
+        <div class="col-md-4">
+          <label for="level" class="form-label fw-semibold">Level:</label>
+          <select
+            class="form-select"
+            id="level"
+            (change)="toggleLevelFilter($event)"
+          >
+            <option value="" selected>All Grades</option>
+            <option value="Grade 1 Secondary">Grade 1 Secondary</option>
+            <option value="Grade 2 Secondary">Grade 2 Secondary</option>
+            <option value="Grade 3 Secondary">Grade 3 Secondary</option>
+          </select>
+        </div>
+
+        <!-- Free Only -->
+        <div class="col-md-4 d-flex align-items-center pt-4">
+          <div class="form-check d-flex align-items-center mb-0">
+            <input
+              type="checkbox"
+              class="form-check-input me-2 p-2"
+              id="freeOnly"
+              (change)="toggleFreeOnly($event)"
+            />
+            <label class="form-check-label mb-0 fw-semibold" for="freeOnly">
+              Free lessons only
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No lessons found -->
+    @if (filteredLessons.length === 0 && lessons.length > 0) { @if
+    ((selectedLevel && isLessonsFree) || isLessonsFree) {
+    <div class="alert alert-warning text-center">
+      <i class="bi bi-info-circle me-2"></i>
+      No free lessons available at the moment.
+    </div>
+    } @else if (selectedLevel) {
+    <div class="alert alert-warning text-center">
+      <i class="bi bi-info-circle me-2"></i>
+      No lessons found for the selected level.
+    </div>
+    } }
+
+    <!-- Lessons Table -->
+    @if (filteredLessons.length > 0) {
+    <div class="table-responsive">
+      <table
+        class="table table-hover align-middle border shadow-sm rounded-4 overflow-hidden"
+      >
+        <thead class="table-light">
+          <tr>
+            <th>Title</th>
+            <th>Level</th>
+            <th>Price</th>
+            <th class="text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (lesson of filteredLessons; track $index) {
+          <tr>
+            <td class="fw-semibold">{{ lesson?.title }}</td>
+            <td>{{ lesson?.classLevel }}</td>
+            <td>$ {{ lesson?.price }}</td>
+
+            <td class="text-center">
+              <button
+                class="btn btn-sm btn-outline-success me-2"
+                (click)="onEditLesson(lesson)"
+              >
+                Edit
+              </button>
+              <button
+                (click)="deleteLesson(lesson._id)"
+                class="btn btn-sm btn-outline-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    } }
+  </div>
+</section>
