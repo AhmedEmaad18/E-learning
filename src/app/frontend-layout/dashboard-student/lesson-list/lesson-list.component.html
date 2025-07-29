@@ -56,7 +56,6 @@
           </div>
         </div>
       </div>
-
       <!-- Alerts -->
       <div *ngIf="filteredLessons.length === 0 && lessons.length > 0">
         <div class="alert alert-warning mt-3" *ngIf="isLessonsFree && selectedLevel">
@@ -92,7 +91,6 @@
               <span class="text-primary fw-semibold small mb-1">
                 {{ lesson.classLevel }}
               </span>
-
               <h5 class="card-title">{{ lesson.title }}</h5>
               <p class="card-text text-muted small">{{ lesson.description }}</p>
 

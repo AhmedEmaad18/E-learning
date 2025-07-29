@@ -41,6 +41,8 @@ trackLesson(index: number, lesson: Lesson): string {
         this.lessons = res.data;
         this.filteredLessons = res.data;
         this.isLoading = false;
+        
+        console.log(res.data)
       },
       error: (err) => {
         console.error('Error loading lessons:', err);
@@ -52,7 +54,7 @@ trackLesson(index: number, lesson: Lesson): string {
   private fetchPurchasedLessons(): void {
     this.paymentService.getPurchasedLessons().subscribe({
       next: (res) => {
-        this.purchasedLessonIds = res.map((l: any) => l._id);
+        this.purchasedLessonIds = res.map((l: any) => l?._id);
       },
       error: (err) => {
         console.error('Error loading purchased lessons:', err);
