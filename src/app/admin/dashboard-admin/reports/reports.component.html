@@ -191,7 +191,17 @@
             [class.striped]="i % 2 === 1"
           >
             <td>{{ s.student?.fullName || s.fullName || s.name || "N/A" }}</td>
-            <td>{{ s.score }}</td>
+            <td>
+              <button 
+                class="score-btn" 
+                [class]="getScoreColor(s.score)"
+                (click)="showStudentAnswers(s)"
+                title="Click to view student answers"
+              >
+                <span class="material-icons">visibility</span>
+                {{ s.score }}
+              </button>
+            </td>
           </tr>
         </tbody>
         <tfoot>
@@ -206,6 +216,138 @@
       <div *ngIf="examBlock.scores.length === 0" class="no-scores">
         <span class="material-icons">info</span> No scores found for this exam.
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Student Answers Modal -->
+<div *ngIf="showAnswersModal" class="modal-overlay" (click)="closeAnswersModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Student Exam Details</h2>
+      <button class="close-btn" (click)="closeAnswersModal()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Student and Exam Information -->
+      <div *ngIf="selectedStudentExam" class="info-section">
+        <div class="info-card">
+          <div class="info-item">
+            <span class="material-icons">person</span>
+            <div class="info-content">
+              <label>Student:</label>
+              <span>{{ selectedStudentExam.student?.fullName || selectedStudentExam.fullName || selectedStudentExam.name || 'N/A' }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-icons">assignment</span>
+            <div class="info-content">
+              <label>Exam:</label>
+              <span>{{ selectedStudentExam.exam?.title || 'N/A' }}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="material-icons">star</span>
+            <div class="info-content">
+              <label>Score:</label>
+              <span [class]="getScoreColor(selectedStudentExam.score)">
+                {{ selectedStudentExam.score }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div *ngIf="loadingAnswers" class="loading-container">
+        <div class="loading-spinner"></div>
+        <p>Loading student answers...</p>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="answersError" class="error-message">
+        <span class="material-icons">error</span>
+        {{ answersError }}
+      </div>
+
+      <!-- Answers Content -->
+      <div *ngIf="!loadingAnswers && !answersError && studentAnswers.length > 0" class="answers-content">
+        <!-- Summary Statistics -->
+        <div class="summary-section">
+          <div class="summary-card">
+            <div class="summary-item">
+              <span class="material-icons">quiz</span>
+              <div class="summary-content">
+                <span class="number">{{ studentAnswers.length }}</span>
+                <span class="label">Total Questions</span>
+              </div>
+            </div>
+            <div class="summary-item">
+              <span class="material-icons">check_circle</span>
+              <div class="summary-content">
+                <span class="number">{{ getCorrectAnswersCount() }}</span>
+                <span class="label">Correct Answers</span>
+              </div>
+            </div>
+            <div class="summary-item">
+              <span class="material-icons">percent</span>
+              <div class="summary-content">
+                <span class="number">{{ getCorrectAnswersPercentage() }}%</span>
+                <span class="label">Success Rate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Answers -->
+        <div class="answers-section">
+          <h3>
+            <span class="material-icons">question_answer</span>
+            Student Answers ({{ studentAnswers.length }} questions)
+          </h3>
+          
+          <div class="answers-list">
+            <div 
+              *ngFor="let answer of studentAnswers; let i = index" 
+              class="answer-item"
+              [class]="getAnswerStatusClass(answer.isCorrect)"
+            >
+              <div class="answer-header">
+                <span class="question-number">Q{{ i + 1 }}</span>
+                <span class="answer-status">
+                  <span class="material-icons">
+                    {{ answer.isCorrect ? 'check_circle' : 'cancel' }}
+                  </span>
+                  {{ answer.isCorrect ? 'Correct' : 'Incorrect' }}
+                </span>
+              </div>
+              <div class="answer-content">
+                <div class="question-text">
+                  <strong>Question:</strong> {{ answer.questionText || 'Question ' + (i + 1) }}
+                </div>
+                <div class="selected-answer">
+                  <strong>Student's Answer:</strong> {{ answer.selectedAnswer }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Answers State -->
+      <div *ngIf="!loadingAnswers && !answersError && studentAnswers.length === 0" class="no-answers">
+        <span class="material-icons">info</span>
+        No answers found for this student exam.
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="close-modal-btn" (click)="closeAnswersModal()">
+        <span class="material-icons">close</span>
+        Close
+      </button>
     </div>
   </div>
 </div>

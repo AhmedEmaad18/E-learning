@@ -17,6 +17,13 @@ export class ReportsComponent implements OnInit {
   loading: boolean = false;
   error: string = '';
 
+  // Modal properties
+  selectedStudentExam: any = null;
+  studentAnswers: any[] = [];
+  showAnswersModal = false;
+  loadingAnswers = false;
+  answersError = '';
+
   // Filter properties
   examTitleFilter: string = '';
   studentNameFilter: string = '';
@@ -198,5 +205,138 @@ export class ReportsComponent implements OnInit {
       (examBlock) => examBlock.scores
     );
     return this.getAverageScore(allScores);
+  }
+
+  // New methods for handling student answers
+  showStudentAnswers(studentExam: any) {
+    this.selectedStudentExam = studentExam;
+    this.studentAnswers = [];
+    this.showAnswersModal = true;
+    this.loadingAnswers = true;
+    this.answersError = '';
+
+    // Extract IDs from the student exam object
+    const studentExamId = studentExam._id;
+    const examId = studentExam.exam?._id;
+    const studentId = studentExam.student?._id;
+
+    this.tryGetStudentExamData(studentExamId, examId, studentId);
+  }
+
+  private tryGetStudentExamData(
+    studentExamId: string,
+    examId: string,
+    studentId: string
+  ) {
+    this.examService.getStudentExamDetails(studentExamId).subscribe({
+      next: (response) => {
+        const answers = this.extractAnswersFromResponse(response);
+        if (answers.length > 0) {
+          this.studentAnswers = answers;
+          this.loadingAnswers = false;
+        } else {
+          this.tryWithExamId(examId, studentId);
+        }
+      },
+      error: () => {
+        this.tryWithExamId(examId, studentId);
+      },
+    });
+  }
+
+  private tryWithExamId(examId: string, studentId: string) {
+    this.examService.getStudentExamByExamId(examId, studentId).subscribe({
+      next: (response) => {
+        const answers = this.extractAnswersFromResponse(response);
+        if (answers.length > 0) {
+          this.studentAnswers = answers;
+        }
+        this.loadingAnswers = false;
+      },
+      error: (error) => {
+        this.answersError = 'Failed to load student answers. Please try again.';
+        this.loadingAnswers = false;
+      },
+    });
+  }
+
+  closeAnswersModal() {
+    this.showAnswersModal = false;
+    this.selectedStudentExam = null;
+    this.studentAnswers = [];
+    this.loadingAnswers = false;
+    this.answersError = '';
+  }
+
+  getScoreColor(score: number): string {
+    if (score >= 80) return 'text-success';
+    if (score >= 60) return 'text-warning';
+    return 'text-danger';
+  }
+
+  getAnswerStatusClass(isCorrect: boolean): string {
+    return isCorrect ? 'correct-answer' : 'incorrect-answer';
+  }
+
+  getCorrectAnswersPercentage(): number {
+    if (this.studentAnswers.length === 0) return 0;
+    const correctAnswers = this.studentAnswers.filter(
+      (answer) => answer.isCorrect
+    ).length;
+    return Math.round((correctAnswers / this.studentAnswers.length) * 100);
+  }
+
+  getCorrectAnswersCount(): number {
+    return this.studentAnswers.filter((answer) => answer.isCorrect).length;
+  }
+
+  // Helper method to extract answers from different data structures
+  private extractAnswersFromResponse(response: any): any[] {
+    // First, check if response.data is an array of student exam objects
+    if (
+      response.data &&
+      Array.isArray(response.data) &&
+      response.data.length > 0
+    ) {
+      // Find the student exam object that matches our selectedStudentExam._id
+      const matchingStudentExam = response.data.find(
+        (exam: any) => exam._id === this.selectedStudentExam?._id
+      );
+
+      if (matchingStudentExam) {
+        if (
+          matchingStudentExam.answers &&
+          Array.isArray(matchingStudentExam.answers)
+        ) {
+          return matchingStudentExam.answers;
+        }
+      }
+    }
+
+    // Fallback to checking other possible paths
+    const possiblePaths = [
+      response?.data?.answers,
+      response?.data?.data?.answers,
+      response?.answers,
+      response?.data?.studentExam?.answers,
+      response?.studentExam?.answers,
+      response?.data?.exam?.answers,
+      response?.exam?.answers,
+      response?.data?.student?.answers,
+      response?.student?.answers,
+      response?.data?.examData?.answers,
+      response?.examData?.answers,
+      response?.data?.result?.answers,
+      response?.result?.answers,
+    ];
+
+    for (let i = 0; i < possiblePaths.length; i++) {
+      const path = possiblePaths[i];
+      if (path && Array.isArray(path) && path.length > 0) {
+        return path;
+      }
+    }
+
+    return [];
   }
 }

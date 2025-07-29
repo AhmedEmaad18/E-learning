@@ -39,4 +39,21 @@ export class PaymentService {
       catchError(() => of(0))
     );
   }
+
+  // Get revenue from lessons with prices
+  getRevenueFromLessons(): Observable<number> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ token: token || '' });
+    return this.http.get<any>(`${this.apiUrl}/lesson`, { headers }).pipe(
+      map((res) => {
+        if (res && res.data && Array.isArray(res.data)) {
+          return res.data
+            .filter((lesson: any) => lesson.price && lesson.price > 0)
+            .reduce((sum: number, lesson: any) => sum + (lesson.price || 0), 0);
+        }
+        return 0;
+      }),
+      catchError(() => of(0))
+    );
+  }
 }
