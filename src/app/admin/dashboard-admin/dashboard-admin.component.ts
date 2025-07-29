@@ -102,9 +102,12 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
           : (res as any).data?.length || 0;
       },
     });
-    this.paymentService.getRevenueFromPurchasedLessons().subscribe({
+    this.paymentService.getRevenueFromLessons().subscribe({
       next: (res) => {
         this.totalRevenue = res;
+      },
+      error: () => {
+        this.totalRevenue = 0;
       },
     });
   }
