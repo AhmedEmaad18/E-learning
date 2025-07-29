@@ -1,33 +1,42 @@
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Lesson } from '../../../core/models/model';
 import { LessonService } from '../../../core/services/lesson.service';
 import { PaymentService } from '../../../core/services/payment.service';
 
 @Component({
   selector: 'app-lesson-list',
-  imports: [NgClass, RouterLink],
+  standalone: true,
+  imports: [NgClass, RouterLink,CommonModule],
   templateUrl: './lesson-list.component.html',
   styleUrl: './lesson-list.component.css',
 })
 export class LessonListComponent {
-  isLoading: boolean = true;
-
+  isLoading = true;
   lessons: Lesson[] = [];
   filteredLessons: Lesson[] = [];
   purchasedLessonIds: string[] = [];
 
-  selectedLevel: string = '';
-  isLessonsFree: boolean = false;
+  selectedLevel = '';
+  isLessonsFree = false;
+trackLesson(index: number, lesson: Lesson): string {
+  return lesson._id;
+}
 
   constructor(
-    private _LessonService: LessonService,
-    private _PaymentService: PaymentService
+    private lessonService: LessonService,
+    private paymentService: PaymentService,
+    private router: Router
   ) {}
 
-  getALlLessons(): void {
-    this._LessonService.getAllLessons().subscribe({
+  ngOnInit(): void {
+    this.fetchLessons();
+    this.fetchPurchasedLessons();
+  }
+
+  private fetchLessons(): void {
+    this.lessonService.getAllLessons().subscribe({
       next: (res) => {
         this.lessons = res.data;
         this.filteredLessons = res.data;
@@ -35,12 +44,13 @@ export class LessonListComponent {
       },
       error: (err) => {
         console.error('Error loading lessons:', err);
+        this.isLoading = false;
       },
     });
   }
 
-  getPurchasedLessons(): void {
-    this._PaymentService.getPurchasedLessons().subscribe({
+  private fetchPurchasedLessons(): void {
+    this.paymentService.getPurchasedLessons().subscribe({
       next: (res) => {
         this.purchasedLessonIds = res.map((l: any) => l._id);
       },
@@ -54,41 +64,36 @@ export class LessonListComponent {
     return this.purchasedLessonIds.includes(lessonId);
   }
 
-  applyFilters() {
+  applyFilters(): void {
     this.filteredLessons = this.lessons.filter((lesson) => {
-      const levelMatch = this.selectedLevel
+      const levelMatches = this.selectedLevel
         ? lesson.classLevel === this.selectedLevel
         : true;
-      const freeMatch = this.isLessonsFree ? !lesson.isPaid : true;
-      return levelMatch && freeMatch;
+      const freeMatches = this.isLessonsFree ? !lesson.isPaid : true;
+      return levelMatches && freeMatches;
     });
   }
 
-  toggleFreeOnly(event: Event) {
+  toggleFreeOnly(event: Event): void {
     this.isLessonsFree = (event.target as HTMLInputElement).checked;
     this.applyFilters();
   }
 
-  toggleLevelFilter(event: Event) {
+  toggleLevelFilter(event: Event): void {
     this.selectedLevel = (event.target as HTMLSelectElement).value;
     this.applyFilters();
   }
 
-  payment(lessonId: string): void {
-    this._PaymentService.payment(lessonId).subscribe({
+  payment(lesson: Lesson): void {
+    this.paymentService.payment(lesson._id).subscribe({
       next: (res) => {
-        if (res.success && res.paymentUrl) {
-          location.href = res.paymentUrl;
+        if (res.success) {
+          this.router.navigate(['/student/pay'], {
+            state: { price: lesson.price, title: lesson.title },
+          });
         }
       },
-      error: (err) => {
-        console.error('Payment error:', err);
-      },
+      error: (err) => console.error('Payment error:', err),
     });
-  }
-
-  ngOnInit(): void {
-    this.getALlLessons();
-    this.getPurchasedLessons();
   }
 }

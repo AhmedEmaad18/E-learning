@@ -1,35 +1,41 @@
-<div *ngIf="loading" class="loading-container">
-  <mat-spinner></mat-spinner>
+<div *ngIf="loading" class="d-flex justify-content-center align-items-center vh-50">
+  <div class="spinner-border text-primary" role="status" style="width: 3.5rem; height: 3.5rem;">
+    <span class="visually-hidden">Loading...</span>
+  </div>
 </div>
 
-<div *ngIf="!loading">
-  <div class="users-title p-2">
-    <mat-icon class="users-title-icon" color="primary">group</mat-icon>
-    <span>All Users</span>
+<div *ngIf="!loading" class="container py-4">
+  <div class="d-flex align-items-center mb-4 text-primary">
+    <i class="bi bi-people-fill fs-1 me-3"></i>
+    <h2 class="fw-bold mb-0">All Users</h2>
   </div>
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Role</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td data-label="Name">{{ user.fullName }}</td>
-        <td data-label="Email">{{ user.email }}</td>
-        <td data-label="Role">
-          <span
-            [ngClass]="{
-              'role-admin': user.role === 'admin',
-              'role-user': user.role === 'user'
-            }"
-          >
-            {{ user.role | titlecase }}
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+
+  <div class="table-responsive shadow rounded">
+    <table class="table table-striped align-middle mb-0">
+      <thead class="table-primary text-primary">
+        <tr>
+          <th scope="col" class="text-uppercase fw-semibold">Name</th>
+          <th scope="col" class="text-uppercase fw-semibold">Email</th>
+          <th scope="col" class="text-uppercase fw-semibold">Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" class="user-row" style="cursor: default;">
+          <td data-label="Name" class="fw-medium text-dark">{{ user.fullName }}</td>
+          <td data-label="Email" class="text-secondary">{{ user.email }}</td>
+          <td data-label="Role">
+            <span
+              [ngClass]="{
+                'badge bg-primary text-white': user.role === 'admin',
+                'badge bg-success text-white': user.role === 'user'
+              }"
+              class="py-2 px-3 shadow-sm"
+            >
+              {{ user.role | titlecase }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

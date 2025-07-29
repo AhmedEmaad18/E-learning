@@ -77,6 +77,12 @@ export const routes: Routes = [
           import(
             './frontend-layout/dashboard-student/exams/exam-result/exam-result.component'
           ).then((m) => m.ExamResultComponent),
+      },{
+        path: 'pay',
+        loadComponent: () =>
+          import(
+            './frontend-layout/dashboard-student/lesson-list/payment/payment.component'
+          ).then((m) => m.PaymentComponent),
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
