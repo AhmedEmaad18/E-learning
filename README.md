@@ -103,7 +103,7 @@ Includes **lesson & exam management**, **secure authentication**, **payments**, 
   - Implemented logic to calculate and display exam statistics and user scores on dashboards.  
 - **Integration:**  
   - Integrated exam services with authentication and lesson modules to assign exams per lesson.
--**UI/UX Enhancements:**  
+- **UI/UX Enhancements:**  
   - Improved the overall user interface with responsive layouts, modern design patterns, and smooth navigation.
 - **Core Services:**  
   Integrated reusable services for managing exams and questions across the application.
