@@ -32,7 +32,7 @@ export const routes: Routes = [
             './frontend-layout/dashboard-student/lesson-list/lesson-list.component'
           ).then((m) => m.LessonListComponent),
       },
-       {
+      {
         path: 'lesson/:id',
         loadComponent: () =>
           import(
@@ -106,6 +106,22 @@ export const routes: Routes = [
             './admin/dashboard-admin/manage-lessons/manage-lessons.component'
           ).then((m) => m.ManageLessonsComponent),
       },
+      {
+        path: 'lessons/add',
+        loadComponent: () =>
+          import(
+            './admin/dashboard-admin/manage-lessons/lesson-form/lesson-form.component'
+          ).then((m) =>m.LessonFormComponent),
+      },
+      {
+        path: 'lessons/edit',
+        loadComponent: () =>
+          import(
+            './admin/dashboard-admin/manage-lessons/lesson-form/lesson-form.component'
+          ).then((m) =>m.LessonFormComponent),
+      },
+      
+
       {
         path: 'manage-exams',
         loadComponent: () =>

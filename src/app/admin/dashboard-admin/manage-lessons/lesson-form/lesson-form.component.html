@@ -1,0 +1,85 @@
+<div class="container w-75 my-4 p-4 shadow rounded bg-light">
+  <h2 class="mb-4 fw-bold text-center text-primary">
+    {{ isEditMode ? 'Edit Lesson' : 'Add Lesson' }}
+  </h2>
+
+  <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()">
+    <!-- Title -->
+    <div class="mb-3">
+      <label for="title" class="form-label fw-bold">Title</label>
+      <input
+        type="text"
+        id="title"
+        class="form-control"
+        formControlName="title"
+        placeholder="Enter lesson title"
+      />
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="description" class="form-label fw-bold">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        formControlName="description"
+        rows="3"
+        placeholder="Enter lesson description"
+      ></textarea>
+    </div>
+
+    <!-- Video URL -->
+    <div class="mb-3">
+      <label for="video" class="form-label fw-bold">Video URL</label>
+      <input
+        type="url"
+        id="video"
+        class="form-control"
+        formControlName="video"
+        placeholder="https://example.com/video"
+      />
+    </div>
+
+    <!-- Price -->
+    <div class="mb-3">
+      <label for="price" class="form-label fw-bold">Price</label>
+      <input
+        type="number"
+        id="price"
+        class="form-control"
+        formControlName="price"
+        placeholder="Enter price"
+        min="0"
+      />
+    </div>
+
+    <!-- Scheduled Date -->
+    <div class="mb-3">
+      <label for="scheduledDate" class="form-label fw-bold">Scheduled Date</label>
+      <input
+        type="date"
+        id="scheduledDate"
+        class="form-control"
+        formControlName="scheduledDate"
+      />
+    </div>
+
+    <!-- Class Level -->
+    <div class="mb-4">
+      <label for="classLevel" class="form-label fw-bold">Class Level</label>
+      <select id="classLevel" class="form-select" formControlName="classLevel">
+        <option value="">Select level</option>
+        <option value="Grade 1 Secondary">Grade 1 Secondary</option>
+        <option value="Grade 2 Secondary">Grade 2 Secondary</option>
+        <option value="Grade 3 Secondary">Grade 3 Secondary</option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary px-5 py-2 fw-bold rounded-pill shadow-sm">
+        {{ isEditMode ? 'Update' : 'Add' }} Lesson
+      </button>
+    </div>
+  </form>
+</div>

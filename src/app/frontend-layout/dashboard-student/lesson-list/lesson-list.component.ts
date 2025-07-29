@@ -32,6 +32,8 @@ export class LessonListComponent {
         this.lessons = res.data;
         this.filteredLessons = res.data;
         this.isLoading = false;
+        
+        console.log(res.data)
       },
       error: (err) => {
         console.error('Error loading lessons:', err);
@@ -42,7 +44,7 @@ export class LessonListComponent {
   getPurchasedLessons(): void {
     this._PaymentService.getPurchasedLessons().subscribe({
       next: (res) => {
-        this.purchasedLessonIds = res.map((l: any) => l._id);
+        this.purchasedLessonIds = res.map((l: any) => l?._id);
       },
       error: (err) => {
         console.error('Error loading purchased lessons:', err);
