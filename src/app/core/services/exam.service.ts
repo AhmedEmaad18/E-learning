@@ -36,6 +36,8 @@ export class ExamService {
     return new HttpHeaders();
   }
 
+
+
   getExams(): Observable<ApiResponse<any>> {
     return this.http.get<ApiResponse<any>>(this.baseUrl, {
       headers: this.getHeaders(),
@@ -122,13 +124,16 @@ export class ExamService {
 
   setAverageScore(score: string | number) {
     this.averageScoreSubject.next(score);
+
   }
 
   getAllStudentsScoresForExam(
     examId: string,
+
     studentName?: string
-  ): Observable<any> {
+   ): Observable<any> {
     let url = `${this.studentExamBaseUrl}/exams/${examId}`;
+
     if (studentName) {
       url += `?studentName=${encodeURIComponent(studentName)}`;
     }
@@ -151,4 +156,6 @@ export class ExamService {
     }
     return this.http.get<any>(url, { headers: this.getHeaders() });
   }
+
 }
+
