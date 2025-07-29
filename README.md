@@ -1,68 +1,73 @@
-# **Edu-Master**
+# 🌟 **Edu-Master**  
 
-A feature-rich e-learning platform designed to provide a seamless experience for both students and admins. It includes functionalities like lesson and exam management, secure authentication, payments, and detailed reports.
+A **feature-rich e-learning platform** designed to provide a seamless experience for both students and admins.  
+Includes **lesson & exam management**, **secure authentication**, **payments**, and **detailed reports**.
 
 ---
 
-## **Features**
+## ✨ **Features**
 
-### **1. Admin Features**
-- **Dashboard Overview:**  
-  View statistics such as total users, lessons, exams, revenue, and recent activity.  
-- **User Management:**  
+### **1. Admin Features 👨‍💼**
+- 📊 **Dashboard Overview:**  
+  View total users, lessons, exams, revenue, and recent activity.  
+- 👥 **User Management:**  
   View, search, and manage all users (students and admins).  
-- **Create Admins:**  
+- 🔑 **Create Admins:**  
   Super admins can create new admin accounts.  
-- **Lesson Management:**  
+- 📚 **Lesson Management:**  
   - Add, edit, and delete lessons.  
-  - Manage lesson content, pricing (free/premium), and details.  
-- **Exam Management:**  
+  - Manage content, pricing (free/premium), and details.  
+- 📝 **Exam Management:**  
   - Create, edit, and delete exams.  
-  - Assign exams to lessons or users.  
-- **Reports:**  
-  Access reports on user activity, revenue, and lesson popularity.
+  - Assign exams to lessons or specific users.  
+- 📈 **Reports:**  
+  Access detailed analytics like user activity, revenue, and lesson popularity.
 
 ---
 
-### **2. Student/User Features**
-- **Personal Dashboard:**  
-  Welcome screen with class level, recent lessons, and quick stats.  
-- **Browse Lessons:**  
-  View all available lessons (free and premium).  
-- **My Lessons:**  
+### **2. Student/User Features 🎓**
+- 🏠 **Personal Dashboard:**  
+  Class level, recent lessons, and quick stats.  
+- 🔍 **Browse Lessons:**  
+  View all available lessons (free & premium).  
+- 🎥 **My Lessons:**  
   Access purchased/enrolled lessons.  
-- **Lesson Details:**  
-  View lesson content, duration, and description.  
-- **Exams:**  
-  - List available and completed exams.  
-  - Start exams, calculate scores, and track progress.  
-- **Payments:**  
+- 🧾 **Lesson Details:**  
+  View content, duration, and description.  
+- 📝 **Exams:**  
+  - List available & completed exams.  
+  - Take exams and view results.  
+- 💳 **Payments:**  
   Secure payment for premium lessons.  
-- **Support:**  
+- 🆘 **Support:**  
   Access help and support from the dashboard.
 
 ---
 
-### **3. Shared Features**
+### **3. Shared Features 🔒**
 - **Authentication:**  
   Secure login, registration, and password recovery.  
 - **Profile Management:**  
-  Update profile information, change password, and delete account.  
+  Update profile info, change password, and delete account.  
 - **Role-based Access:**  
-  Admin and student routes are protected by guards.  
+  Admin and student dashboards protected by guards.  
 - **Logout:**  
-  Securely log out from any device.
+  Secure logout from any device.
 
 ---
 
-## **Tech Stack**
-- **Frontend:** Angular   
-- **UI Libraries:** Angular Material, Bootstrap 5, FontAwesome, ngx-bootstrap, ngx-toastr, SweetAlert2  
-- **Routing & State:** Angular Router, RxJS  
-- **HTTP & API:** Angular HttpClient  
-- **Build Tools:** Angular CLI, TypeScript  
-- **Styling:** CSS, Angular Material themes, Bootstrap  
+## 🛠 **Tech Stack**
 
+![Angular](https://img.shields.io/badge/Angular-19-red?logo=angular&logoColor=white)  
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-purple?logo=bootstrap&logoColor=white)  
+![Angular Material](https://img.shields.io/badge/Angular_Material-UI-blue?logo=material-design&logoColor=white)  
+![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue?logo=typescript&logoColor=white)  
+![FontAwesome](https://img.shields.io/badge/FontAwesome-Icons-green?logo=fontawesome&logoColor=white)  
+![SweetAlert2](https://img.shields.io/badge/SweetAlert2-Alerts-orange)  
+![RxJS](https://img.shields.io/badge/RxJS-State%20Mgmt-purple?logo=reactivex&logoColor=white)  
+![HttpClient](https://img.shields.io/badge/HTTP-Client-lightblue)  
+
+---
 ---
 
 ## **Team Roles**
