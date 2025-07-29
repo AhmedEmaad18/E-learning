@@ -1,0 +1,24 @@
+table {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+table th,
+table td {
+  vertical-align: middle;
+}
+
+.badge {
+  font-size: 0.875rem;
+}
+@media (max-width: 576px) {
+  .table th,
+  .table td {
+    font-size: 0.875rem;
+  }
+
+  .btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+  }
+}

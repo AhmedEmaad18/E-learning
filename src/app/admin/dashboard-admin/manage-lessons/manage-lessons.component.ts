@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { PaymentService } from '../../../core/services/payment.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-manage-lessons',
@@ -60,14 +61,26 @@ export class ManageLessonsComponent {
     });
   }
 
-  deleteLesson(id: string) {
-    if (confirm('Are you sure you want to delete this lesson?')) {
-      this._LessonService.deleteLesson(id).subscribe({
-        next: () => this.getALlLessons(),
-        error: (err) => console.error('Error deleting lesson:', err),
+ deleteLesson(lessonId: string) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'This lesson will be permanently deleted!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'Yes, delete it!',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // 🔁 Call your delete API or service here
+      this._LessonService.deleteLesson(lessonId).subscribe(() => {
+        Swal.fire('Deleted!', 'The lesson has been removed.', 'success');
+        this.getALlLessons(); // reload list
       });
     }
-  }
+  });
+}
+
 
   onEditLesson(lesson: Lesson) {
     localStorage.setItem('selectedLesson', JSON.stringify(lesson));

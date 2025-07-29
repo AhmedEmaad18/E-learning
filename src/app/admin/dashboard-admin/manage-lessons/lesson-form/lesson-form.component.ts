@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LessonService } from '../../../../core/services/lesson.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lesson-form',
@@ -55,34 +56,70 @@ export class LessonFormComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.lessonForm.invalid) return;
-    const data = { ...this.lessonForm.value };
+  if (this.lessonForm.invalid) return;
+  const data = { ...this.lessonForm.value };
 
-    if (this.isEditMode && this.lessonId) {
-      delete data.scheduledDate;
+  if (this.isEditMode && this.lessonId) {
+    delete data.scheduledDate;
 
-      this.lessonService.updateLesson(this.lessonId, data).subscribe({
-        next: () => {
-          alert('Lesson updated successfully!');
-          localStorage.removeItem('selectedLesson');
-          this.router.navigate(['/admin/manage-lessons']);
-        },
-        error: (err) => {
-          alert('Failed to update lesson.');
-          console.log(err);
-        },
-      });
-    } else {
-      this.lessonService.addLesson(data).subscribe({
-        next: () => {
-          alert('Lesson added successfully!');
-          this.router.navigate(['/admin/manage-lessons']);
-        },
-        error: (err) => {
-          alert('Failed to add lesson.');
-          console.log(err);
-        },
-      });
-    }
+    this.lessonService.updateLesson(this.lessonId, data).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Lesson updated!',
+          text: 'The lesson was updated successfully.',
+          confirmButtonColor: '#3085d6',
+        });
+        localStorage.removeItem('selectedLesson');
+        this.router.navigate(['/admin/manage-lessons']);
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Update Failed',
+          text: 'There was an error updating the lesson.',
+        });
+        console.log(err);
+      },
+    });
+  } else {
+    this.lessonService.addLesson(data).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Lesson added!',
+          text: 'The new lesson was added successfully.',
+          confirmButtonColor: '#3085d6',
+        });
+        this.router.navigate(['/admin/manage-lessons']);
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Add Failed',
+          text: 'There was an error adding the lesson.',
+        });
+        console.log(err);
+      },
+    });
   }
+}
+
+onCancel(): void {
+  Swal.fire({
+    title: 'Cancel Changes?',
+    text: 'Your changes will not be saved.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Yes, cancel',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.router.navigate(['/admin/manage-lessons']);
+    }
+  });
+}
+
+
 }

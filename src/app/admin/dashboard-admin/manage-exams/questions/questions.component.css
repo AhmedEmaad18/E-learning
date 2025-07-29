@@ -101,7 +101,7 @@
 /* Buttons */
 .btn-outline-primary,
 .btn-outline-danger {
-  min-width: 38px;
+  min-width: 10px;
   height: 38px;
   display: flex;
   align-items: center;

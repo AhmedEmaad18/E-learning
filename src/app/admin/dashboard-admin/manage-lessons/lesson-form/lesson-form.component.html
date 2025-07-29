@@ -1,12 +1,15 @@
-<div class="container w-75 my-4 p-4 shadow rounded bg-light">
+<div class="container w-100 w-md-75 my-4 p-4 shadow rounded bg-light">
   <h2 class="mb-4 fw-bold text-center text-primary">
+    <i class="bi bi-journal-plus me-2"></i>
     {{ isEditMode ? 'Edit Lesson' : 'Add Lesson' }}
   </h2>
 
   <form [formGroup]="lessonForm" (ngSubmit)="onSubmit()">
     <!-- Title -->
     <div class="mb-3">
-      <label for="title" class="form-label fw-bold">Title</label>
+      <label for="title" class="form-label fw-bold">
+        <i class="bi bi-fonts me-1"></i>Title
+      </label>
       <input
         type="text"
         id="title"
@@ -18,7 +21,9 @@
 
     <!-- Description -->
     <div class="mb-3">
-      <label for="description" class="form-label fw-bold">Description</label>
+      <label for="description" class="form-label fw-bold">
+        <i class="bi bi-card-text me-1"></i>Description
+      </label>
       <textarea
         id="description"
         class="form-control"
@@ -30,7 +35,9 @@
 
     <!-- Video URL -->
     <div class="mb-3">
-      <label for="video" class="form-label fw-bold">Video URL</label>
+      <label for="video" class="form-label fw-bold">
+        <i class="bi bi-camera-video me-1"></i>Video URL
+      </label>
       <input
         type="url"
         id="video"
@@ -42,7 +49,9 @@
 
     <!-- Price -->
     <div class="mb-3">
-      <label for="price" class="form-label fw-bold">Price</label>
+      <label for="price" class="form-label fw-bold">
+        <i class="bi bi-currency-dollar me-1"></i>Price
+      </label>
       <input
         type="number"
         id="price"
@@ -55,7 +64,9 @@
 
     <!-- Scheduled Date -->
     <div class="mb-3">
-      <label for="scheduledDate" class="form-label fw-bold">Scheduled Date</label>
+      <label for="scheduledDate" class="form-label fw-bold">
+        <i class="bi bi-calendar-event me-1"></i>Scheduled Date
+      </label>
       <input
         type="date"
         id="scheduledDate"
@@ -66,7 +77,9 @@
 
     <!-- Class Level -->
     <div class="mb-4">
-      <label for="classLevel" class="form-label fw-bold">Class Level</label>
+      <label for="classLevel" class="form-label fw-bold">
+        <i class="bi bi-mortarboard me-1"></i>Class Level
+      </label>
       <select id="classLevel" class="form-select" formControlName="classLevel">
         <option value="">Select level</option>
         <option value="Grade 1 Secondary">Grade 1 Secondary</option>
@@ -75,10 +88,22 @@
       </select>
     </div>
 
-    <!-- Submit Button -->
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary px-5 py-2 fw-bold rounded-pill shadow-sm">
+    <!-- Buttons -->
+    <div class="d-flex justify-content-center gap-3">
+      <button
+        type="submit"
+        class="btn btn-primary px-4 py-2 fw-bold rounded-pill shadow-sm"
+      >
+        <i class="bi bi-check-circle me-1"></i>
         {{ isEditMode ? 'Update' : 'Add' }} Lesson
+      </button>
+
+      <button
+        type="button"
+        class="btn btn-outline-secondary px-4 py-2 fw-bold rounded-pill shadow-sm"
+        (click)="onCancel()"
+      >
+        <i class="bi bi-x-circle me-1"></i>Cancel
       </button>
     </div>
   </form>

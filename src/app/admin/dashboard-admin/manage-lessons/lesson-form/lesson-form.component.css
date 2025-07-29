@@ -1,0 +1,10 @@
+@media (max-width: 576px) {
+  .form-control,
+  .form-select {
+    font-size: 0.9rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}

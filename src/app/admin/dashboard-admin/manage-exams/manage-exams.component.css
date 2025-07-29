@@ -236,8 +236,8 @@ th {
   .btn-edit,
   .btn-delete,
   .btn-info {
-    width: 100%;
-    max-width: 160px;
+    width: 50%;
+    max-width: 120px;
     justify-content: center;
   }
 
