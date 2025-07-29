@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>Update Profile</h2>
+<mat-dialog-content>
+  <form
+    [formGroup]="profileForm"
+    (ngSubmit)="updateProfile()"
+    class="profile-form"
+  >
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Full Name</mat-label>
+      <input
+        matInput
+        formControlName="fullName"
+        placeholder="Enter your full name"
+      />
+      <mat-error *ngIf="profileForm.get('fullName')?.hasError('required')">
+        Full name is required
+      </mat-error>
+      <mat-error *ngIf="profileForm.get('fullName')?.hasError('minlength')">
+        Full name must be at least 2 characters
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Enter your email" />
+      <mat-error *ngIf="profileForm.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
+        Please enter a valid email address
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Phone Number</mat-label>
+      <input
+        matInput
+        formControlName="phoneNumber"
+        placeholder="Enter your phone number"
+      />
+      <mat-error *ngIf="profileForm.get('phoneNumber')?.hasError('required')">
+        Phone number is required
+      </mat-error>
+      <mat-error *ngIf="profileForm.get('phoneNumber')?.hasError('pattern')">
+        Please enter a valid Egyptian phone number (11 digits, starts with 01)
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="w-100 mb-3">
+      <mat-label>Class Level</mat-label>
+      <input
+        matInput
+        formControlName="classLevel"
+        placeholder="Enter your class level"
+      />
+      <mat-error *ngIf="profileForm.get('classLevel')?.hasError('required')">
+        Class level is required
+      </mat-error>
+    </mat-form-field>
+    <div class="d-flex justify-content-end mt-3">
+      <button mat-stroked-button type="button" (click)="close()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="loading || !profileForm.valid"
+        class="ms-2"
+      >
+        <span *ngIf="!loading">Update Profile</span>
+        <span *ngIf="loading">Updating...</span>
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>

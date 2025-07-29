@@ -1,0 +1,95 @@
+
+<div class="container mt-5">
+        <div id="ExamsHeader" class="p-5 rounded-4 text-white shadow bg-primary
+        mb-3">
+          <h1 class="text-dark gradient-bg">Exams & Assessments</h1>
+          <h5>Test your knowledge and track your progress</h5>
+        </div>
+
+
+<div *ngIf="loading" class="loading-spinner">
+  <div class="spinner"></div>
+  <span class="loading-text">Loading exams...</span>
+</div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+<div class="stats">
+  <div class="stat-box">
+    <div>
+
+      <h6>Available Exams</h6>
+      <div class="display-4">{{ availableExams.length }}</div>
+    </div>
+    <i class="fa fa-book fa-2x stat-icon book"></i>
+  </div>
+
+  <div class="stat-box">
+    <div>
+      <h6>Completed</h6>
+      <div class="display-4">{{ completedExams.length }}</div>
+    </div>
+    <i class="fa fa-check-circle fa-2x stat-icon check-circle"></i>
+  </div>
+
+  <div class="stat-box">
+    <div>
+      <h6>Average Score</h6>
+      <div class="display-4">{{ averageScore }}</div>
+    </div>
+    <i class="fa fa-trophy fa-2x stat-icon trophy"></i>
+  </div>
+</div>
+
+
+
+  <hr class="my-4" />
+
+  <div class="tabs">
+  <button (click)="showAvailable = true" [class.active]="showAvailable">Available Exams ({{ availableExams.length }})</button>
+  <button (click)="showAvailable = false" [class.active]="!showAvailable">Completed Exams ({{ completedExams.length }})</button>
+</div>
+
+<div class="exam-content">
+  <div *ngIf="showAvailable">
+    <h3>Available Exams</h3>
+    <div class="exam-list">
+      <div *ngIf="availableExams.length === 0 && !loading">No available exams.</div>
+      <div class="list-group">
+        <div class="card exam-card" *ngFor="let exam of availableExams">
+          <h5>{{ exam.title }} <span class="badge {{ exam.difficulty }}">{{ exam.difficulty }}</span></h5>
+          <p>{{ exam.description }}</p>
+          <div class="meta">
+            <span><i class="fa fa-clock-o"></i> {{ exam.duration }} mins</span>
+            <span><i class="fa fa-question-circle"></i> {{ exam.questions?.length || 0 }} questions</span>
+          </div>
+          <div class="exam-footer">
+            <span class="availability">Available until: {{ exam.endDate | date }}</span>
+            <button (click)="startExam(exam._id)" class="start-btn float-right">Start Exam</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <div *ngIf="!showAvailable">
+  <h3>Completed Exams</h3>
+  <div *ngIf="completedExams.length === 0 && !loading">No exams completed yet.</div>
+  <div class="exam-list">
+    <div *ngFor="let exam of completedExams" class="card completed-exam-card">
+      <h5 class="completed-title">
+        {{ exam.title }}
+        <span class="badge badge-success completed-badge">
+          <i class="fa fa-flag"></i> Completed
+        </span>
+      </h5>
+      <p>{{ exam.description }}</p>
+      <div *ngIf="exam.score !== undefined" class="exam-score">
+        <strong>Score:</strong> {{ exam.score }}
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</div>

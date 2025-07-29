@@ -1,0 +1,28 @@
+<div class="exam-results mat-elevation-z4">
+  <h2>Exam Result</h2>
+
+  <div class="score-container">
+    <div class="score-number">{{ score }}</div>
+    <div class="total-points">out of {{ totalPoints }}</div>
+    <div
+      class="percentage"
+      [ngClass]="{ success: percentage >= 60, fail: percentage < 60 }"
+      aria-live="polite"
+    >
+      {{ percentage | number: '1.0-0' }}%
+    </div>
+  </div>
+
+  <div
+    class="result-text"
+    [ngClass]="{ success: percentage >= 60, fail: percentage < 60 }"
+    aria-label="Exam result status"
+  >
+    {{ percentage >= 60 ? 'Passed 🎉' : 'Failed ❌' }}
+  </div>
+
+  <div mat-dialog-actions class="dialog-actions">
+    <button mat-raised-button color="primary"   (click)="close()">Close</button>
+  </div>
+</div>
+

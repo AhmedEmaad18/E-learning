@@ -1,0 +1,89 @@
+<div class="container my-5 p-4 bg-white rounded shadow-sm exam-container">
+  <!-- Header with title and timer -->
+  <div class="d-flex justify-content-between align-items-center mb-3 exam-header">
+    <h2 class="mb-0">{{ exam?.title || 'Exam' }}</h2>
+    <div class="badge bg-danger fs-5">
+      <i class="bi bi-clock-history me-2"></i>
+      <strong>Time Left: {{ formatTime(timeLeft) }}</strong>
+    </div>
+  </div>
+
+  <!-- Question stats -->
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <i class="bi bi-question-circle me-2"></i>
+      <strong>Question {{ currentQuestionIndex + 1 }} of {{ exam?.questions.length }}</strong>
+    </div>
+    <div>
+      <i class="bi bi-check-circle-fill text-success me-2"></i>
+      <strong>Answered: {{ getSelectedAnswersCount() }}</strong>
+    </div>
+  </div>
+
+  <!-- Question navigation pills -->
+  <nav aria-label="Question navigation" class="mb-4">
+    <ul class="pagination flex-wrap">
+      <li *ngFor="let q of exam?.questions; let i = index" class="page-item" [class.active]="isAnswered(i)">
+        <button
+          class="page-link d-flex align-items-center gap-1"
+          (click)="selectQuestion(i)"
+          [attr.aria-label]="'Select question ' + (i + 1)"
+          [attr.aria-current]="currentQuestionIndex === i ? 'page' : null"
+        >
+          <i
+            [ngClass]="{
+              'bi-check-circle-fill text-success': isAnswered(i),
+              'bi-circle text-muted': !isAnswered(i)
+            }"
+            aria-hidden="true"
+          ></i>
+          {{ i + 1 }}
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Question component -->
+  <app-question
+    [question]="currentQuestion"
+    [selectedAnswer]="getSelectedAnswer(currentQuestion._id)"
+    (answer)="onAnswerChange($event)"
+    class="mb-4"
+  ></app-question>
+
+  <!-- Navigation buttons -->
+  <div class="d-flex justify-content-end gap-3 navigation-buttons">
+    <button
+      type="button"
+      class="btn btn-outline-secondary d-flex align-items-center gap-2"
+      (click)="previousQuestion()"
+      [disabled]="currentQuestionIndex === 0"
+    >
+      <i class="bi bi-arrow-left"></i> Previous
+    </button>
+
+    <button
+      *ngIf="currentQuestionIndex < exam.questions.length - 1"
+      type="button"
+      class="btn btn-outline-secondary d-flex align-items-center gap-2"
+      (click)="submitCurrentQuestion()"
+    >
+      Next <i class="bi bi-arrow-right"></i>
+    </button>
+
+    <button
+      *ngIf="currentQuestionIndex === exam.questions.length - 1"
+      type="button"
+      class="btn btn-success d-flex align-items-center gap-2"
+      (click)="submitExam()"
+    >
+      <i class="bi bi-check-circle"></i> Submit Exam
+    </button>
+  </div>
+
+  <!-- Error message -->
+  <div *ngIf="error" class="alert alert-danger mt-4" role="alert">
+    {{ error }}
+  </div>
+</div>
+

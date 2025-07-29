@@ -1,0 +1,268 @@
+.welcome-section {
+  background: linear-gradient(90deg, #1976d2 0%, #42a5f5 100%);
+  color: #fff;
+  border-radius: 12px;
+  padding: 28px 32px 20px 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.07);
+}
+.dashboard-badges {
+  margin-top: 12px;
+}
+.badge {
+  display: inline-block;
+  background: #e3e6f8;
+  color: #1976d2;
+  border-radius: 16px;
+  padding: 4px 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-right: 8px;
+}
+.badge.role {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+.badge.access {
+  background: #ede7f6;
+  color: #7c4dff;
+}
+.stats-section {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.stat-card {
+  flex: 1;
+  text-align: left;
+  padding: 18px 0 18px 24px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+  position: relative;
+  min-width: 180px;
+}
+.stat-value {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #222;
+}
+.stat-icon {
+  position: absolute;
+  right: 24px;
+  top: 32px;
+  font-size: 2.2rem;
+  color: #e3e6f8;
+}
+.dashboard-lists {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+}
+.recent-activity {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.07);
+  padding: 24px 20px;
+  flex: 1;
+}
+.recent-activity h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.hint-text {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #666;
+  opacity: 0.8;
+}
+.lesson-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  background: linear-gradient(90deg, #e3f0ff 0%, #f5f7fa 100%);
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.08);
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+  border-left: 5px solid #1976d2;
+  position: relative;
+}
+.lesson-item:hover {
+  box-shadow: 0 6px 24px rgba(25, 118, 210, 0.15);
+  background: linear-gradient(90deg, #e3f2fd 0%, #e1f5fe 100%);
+  transform: translateY(-2px) scale(1.01);
+}
+
+.lesson-item:hover::after {
+  opacity: 1;
+}
+
+/* Paid Lesson Styling */
+.lesson-item.paid-lesson {
+  background: linear-gradient(90deg, #fff3e0 0%, #fff8e1 100%);
+  border-left: 5px solid #ff9800;
+}
+
+.lesson-item.paid-lesson:hover {
+  background: linear-gradient(90deg, #ffe0b2 0%, #ffcc02 100%);
+  box-shadow: 0 6px 24px rgba(255, 152, 0, 0.15);
+}
+
+.lesson-item.paid-lesson::after {
+  color: #ff9800;
+}
+
+.paid-indicator {
+  display: inline-block;
+  background: linear-gradient(45deg, #ff9800, #ffc107);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-left: 8px;
+  animation: shimmer 2s infinite;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.paid-indicator mat-icon {
+  font-size: 0.75rem;
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+@keyframes shimmer {
+  0% {
+    background: linear-gradient(45deg, #ff9800, #ffc107);
+  }
+  50% {
+    background: linear-gradient(45deg, #ffc107, #ff9800);
+  }
+  100% {
+    background: linear-gradient(45deg, #ff9800, #ffc107);
+  }
+}
+
+/* Exams section styling */
+.exam-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  background: linear-gradient(90deg, #fffde7 0%, #f5f7fa 100%);
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.08);
+  transition: box-shadow 0.2s, transform 0.2s, background 0.2s;
+  border-left: 5px solid #ffc107;
+  position: relative;
+}
+.exam-item:hover {
+  box-shadow: 0 6px 24px rgba(255, 193, 7, 0.15);
+  background: linear-gradient(90deg, #fffde7 0%, #fff8e1 100%);
+  transform: translateY(-2px) scale(1.01);
+}
+.exam-item::after {
+  content: "▶";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffc107;
+  font-weight: bold;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.exam-item:hover::after {
+  opacity: 1;
+}
+
+.lesson-title,
+.exam-title {
+  font-weight: 700;
+  color: #222;
+  font-size: 1.1rem;
+}
+.lesson-duration,
+.exam-duration {
+  font-size: 0.98rem;
+  color: #1976d2;
+  margin-top: 2px;
+}
+.exam-duration {
+  color: #ffc107;
+}
+.lesson-description,
+.exam-description {
+  color: #555;
+  font-size: 0.97rem;
+  margin-top: 2px;
+}
+.lesson-badge.free {
+  background: #e3f2fd;
+  color: #1976d2;
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.lesson-badge.paid {
+  background: #fff3e0;
+  color: #ff9800;
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid #ff9800;
+}
+.text-center {
+  text-align: center;
+}
+.my-4 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.loading-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+}
+.view-more-btn {
+  margin-top: 12px;
+  border-radius: 24px !important;
+  font-weight: 600;
+  background: linear-gradient(90deg, #1976d2 0%, #7b1fa2 100%);
+  color: #fff !important;
+  border: 1.5px solid #512da8;
+  box-shadow: 0 2px 12px rgba(123, 31, 162, 0.1);
+  transition: background 0.2s, box-shadow 0.2s, transform 0.2s, border 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.view-more-btn:hover {
+  background: linear-gradient(90deg, #512da8 0%, #1976d2 100%);
+  box-shadow: 0 8px 28px rgba(123, 31, 162, 0.18);
+  border: 1.5px solid #1976d2;
+  transform: translateY(-2px) scale(1.03);
+}
+@media (max-width: 900px) {
+  .stats-section,
+  .dashboard-lists {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .dashboard-content {
+    padding: 16px 8px 0 8px;
+  }
+  .welcome-section {
+    padding: 18px 12px 12px 12px;
+  }
+}

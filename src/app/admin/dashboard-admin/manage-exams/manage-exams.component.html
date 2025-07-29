@@ -1,1 +1,241 @@
-<p>manage-exams works!</p>
+<div class="container mt-5">
+  <!-- Page Header -->
+  <h2 class="text-primary mb-4 d-flex align-items-center">
+    <i class="bi bi-journal-bookmark-fill me-2"></i>
+    Manage Exams
+    <span class="badge bg-secondary ms-3 fs-6 py-2 px-3">{{ exams.length }}</span>
+  </h2>
+
+  <!-- Add Exam Button -->
+  <button
+    class="btn btn-success mb-4 btn-animated"
+    (click)="showAddExam()"
+    aria-label="Add new exam"
+  >
+    <i class="bi bi-plus-circle me-1"></i> Add New Exam
+  </button>
+
+  <!-- Loading & Error States -->
+  <div
+    *ngIf="loading"
+    class="alert alert-info fade-in d-flex align-items-center"
+    role="alert"
+    aria-live="polite"
+  >
+    <i class="bi bi-arrow-clockwise me-2 spinning"></i> Loading exams...
+  </div>
+
+  <div
+    *ngIf="error"
+    class="alert alert-danger fade-in d-flex align-items-center"
+    role="alert"
+    aria-live="assertive"
+  >
+    <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
+  </div>
+
+  <!-- Exams Table -->
+<div *ngIf="exams.length && !loading" class="card shadow-sm border-0 fade-in">
+    <div class="table-responsive">
+
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-header">
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Duration</th>
+          <th scope="col">Class Level</th>
+          <th scope="col">Published</th>
+          <th scope="col" class="text-center">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let exam of exams; trackBy: trackByExamId"
+          class="table-row-animate"
+          tabindex="0"
+          role="row"
+          [attr.aria-label]="'Exam ' + exam.title + ', duration ' + exam.duration + ' minutes, class level ' + exam.classLevel + ', published status ' + (exam.isPublished ? 'Yes' : 'No')"
+        >
+          <td>{{ exam.title }}</td>
+          <td>{{ exam.duration }} mins</td>
+          <td>{{ exam.classLevel }}</td>
+          <td>
+            <span
+              class="badge"
+              [ngClass]="exam.isPublished ? 'bg-success' : 'bg-secondary'"
+              [attr.aria-label]="exam.isPublished ? 'Published' : 'Not published'"
+            >
+              {{ exam.isPublished ? 'Yes' : 'No' }}
+            </span>
+          </td>
+          <td class="text-center">
+            <button
+              class="btn btn-sm btn-info me-2"
+              (click)="viewScores(exam)"
+              [attr.aria-label]="'View scores for exam ' + exam.title"
+              title="Scores"
+            >
+              <i class="bi bi-bar-chart-fill"></i>
+            </button>
+
+            <button
+              class="btn btn-sm btn-edit me-2"
+              (click)="editExam(exam)"
+              [attr.aria-label]="'Edit exam ' + exam.title"
+              title="Edit"
+            >
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+
+            <button
+              class="btn btn-sm btn-delete me-2"
+              (click)="deleteExam(exam._id)"
+              [attr.aria-label]="'Delete exam ' + exam.title"
+              title="Delete"
+            >
+              <i class="bi bi-trash-fill"></i>
+            </button>
+
+            <button
+              class="btn btn-sm btn-info"
+              (click)="viewQuestions(exam)"
+              [attr.aria-label]="'View questions for exam ' + exam.title"
+              title="Questions"
+            >
+              <i class="bi bi-question-circle"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- Edit Exam Modal -->
+  <div
+    *ngIf="selectedExam"
+    class="edit-modal fade-in d-flex justify-content-center align-items-center"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="editExamTitle"
+    (click)="cancelEdit()"
+    tabindex="-1"
+    (keydown.escape)="cancelEdit()"
+  >
+    <div
+      class="edit-modal-dialog p-4 bg-white rounded shadow-lg"
+      tabindex="0"
+      (click)="$event.stopPropagation()"
+    >
+      <h5 id="editExamTitle" class="mb-3">Edit Exam</h5>
+
+      <app-edit-exam
+        [exam]="selectedExam"
+        [visible]="true"
+        (save)="handleSave($event)"
+        (cancel)="cancelEdit()"
+      ></app-edit-exam>
+
+      <button
+        type="button"
+        class="btn btn-close-modal mt-3"
+        (click)="cancelEdit()"
+        aria-label="Close edit exam modal"
+      >
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Exam Modal -->
+  <div
+    *ngIf="addingExam"
+    class="edit-modal fade-in d-flex justify-content-center align-items-center"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="addExamTitle"
+    (click)="cancelAdd()"
+    tabindex="-1"
+    (keydown.escape)="cancelAdd()"
+  >
+    <div
+      class="edit-modal-dialog p-4 bg-white rounded shadow-lg"
+      style="max-height: none; overflow-y: visible;"
+      tabindex="0"
+      (click)="$event.stopPropagation()"
+    >
+      <h5 id="addExamTitle" class="mb-3">Add New Exam</h5>
+
+      <app-add-exam (save)="handleAdd($event)" (cancel)="cancelAdd()"></app-add-exam>
+
+      <button
+        type="button"
+        class="btn btn-close-modal mt-3"
+        (click)="cancelAdd()"
+        aria-label="Close add exam modal"
+      >
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- View Questions Modal -->
+  <div
+    *ngIf="viewingQuestionsFor"
+    class="edit-modal fade-in d-flex justify-content-center align-items-center"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="questionsTitle"
+    (click)="closeQuestionsView()"
+    tabindex="-1"
+    (keydown.escape)="closeQuestionsView()"
+  >
+    <div
+      class="edit-modal-dialog p-4 bg-white rounded shadow-lg w-100 max-w-900px"
+      tabindex="0"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="d-flex justify-content-end align-items-center ">
+        <button
+          class="btn btn-close-modal"
+          (click)="closeQuestionsView()"
+          aria-label="Close questions view modal"
+        >
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <app-questions [exam]="viewingQuestionsFor"></app-questions>
+    </div>
+  </div>
+</div>
+<!-- Scores Modal -->
+<div
+  *ngIf="viewingScoresFor"
+  class="edit-modal fade-in d-flex justify-content-center align-items-center"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="scoresTitle"
+  (click)="closeScoresView()"
+  tabindex="-1"
+  (keydown.escape)="closeScoresView()"
+>
+  <div
+    class="edit-modal-dialog p-4 bg-white rounded shadow-lg w-250 max-w-900px"
+    tabindex="0"
+    (click)="$event.stopPropagation()"
+    style="max-height: none; overflow-y: visible; max-width:900px;"
+
+  >
+    <div class="d-flex justify-content-end align-items-center ">
+      <button
+        class="btn btn-close-modal"
+        (click)="closeScoresView()"
+        aria-label="Close scores view modal"
+      >
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+
+    <app-examscore [exam]="viewingScoresFor"></app-examscore>
+  </div>
+</div>
