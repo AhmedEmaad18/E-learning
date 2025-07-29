@@ -86,27 +86,30 @@ Includes **lesson & exam management**, **secure authentication**, **payments**, 
 - **Student Section:**  
   - Created student dashboard layout with recent lessons and quick stats.  
 - **Core Services:**  
-  Integrated services for authentication, user, lesson, and exam management.
-
+  Integrated reusable services for authentication , user and exam management.
 ---
 
-### **2. Ahmed Emad (Frontend Developer – Exams Module & Analytics)**  
+### **2. Ahmed Emad (Frontend Developer – Exams Module & Analytics & UI Enhancements)**  
 - **Student Exams:**  
   - Developed the complete exam-taking flow, including listing available and completed exams.  
-  - Implemented score calculation logic to compute average performance and progress tracking.  
-  - Built the UI for starting exams, answering questions, and viewing final results.  
+  - Implemented score calculation logic to compute average performance and track progress.  
+  - Built the UI for starting exams, displaying remaining time, answering questions, and viewing final results after submission.
+  - Calculated and updated scores upon exam completion.
 - **Admin Exam Management:**  
   - Developed admin features to list, create, edit, and delete exams (CRUD).  
-  - Designed the question management system, enabling CRUD operations for exam questions.  
-  - Created a detailed exam-question view to ensure admins can validate content.  
+  - Designed a question management system with full CRUD functionality for exam questions.  
+  - Created detailed exam-question views to help admins validate exam content.  
 - **Analytics:**  
   - Implemented logic to calculate and display exam statistics and user scores on dashboards.  
 - **Integration:**  
   - Integrated exam services with authentication and lesson modules to assign exams per lesson.
-
+- **UI/UX Enhancements:**  
+  - Improved the overall user interface with responsive layouts, modern design patterns, and smooth navigation.
+- **Core Services:**  
+  Integrated reusable services for managing exams and questions across the application.
 ---
 
-### **3. Reham Saeed (Frontend Developer – Lessons, Payments & UI Enhancements)**  
+### **3. Reham Saeed (Frontend Developer – Lessons And Payments)**  
 - **Lessons Module:**  
   - Designed the lessons page with responsive cards and filtering options (class level, free/premium).  
   - Built the lesson details page with content description, duration, and preview options.  
@@ -117,10 +120,9 @@ Includes **lesson & exam management**, **secure authentication**, **payments**, 
   - Developed a separate "My Lessons" page to display all purchased/enrolled lessons.  
   - Enabled users to navigate lesson content and track progress.  
 - **Admin Lessons Management:**  
-  - Built full CRUD operations for lessons (add, edit, delete) within the admin dashboard.  
-- **UI/UX Enhancements:**  
-  - Improved the overall user interface with responsive layouts, modern design patterns, and smooth navigation.
-
+  - Built full CRUD operations for lessons (add, edit, delete) within the admin dashboard.
+- **Core Services:**  
+  Integrated reusable services for lesson management.
 ---
 
 ## **Installation & Setup**
