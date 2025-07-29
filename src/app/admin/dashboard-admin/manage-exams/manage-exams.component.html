@@ -35,7 +35,9 @@
   </div>
 
   <!-- Exams Table -->
-  <div *ngIf="exams.length && !loading" class="card shadow-sm border-0 fade-in">
+<div *ngIf="exams.length && !loading" class="card shadow-sm border-0 fade-in">
+    <div class="table-responsive">
+
     <table class="table table-hover align-middle mb-0">
       <thead class="table-header">
         <tr>
@@ -106,6 +108,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
 
   <!-- Edit Exam Modal -->

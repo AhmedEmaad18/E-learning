@@ -120,6 +120,15 @@ export class DashboardAdminComponent implements OnInit, OnDestroy {
   goToProfile() {
     this.router.navigate(['/profile']);
   }
+getInitials(name: string): string {
+  if (!name) return '';
+  return name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2);
+}
 
   signOut() {
     this.authService.logout();
